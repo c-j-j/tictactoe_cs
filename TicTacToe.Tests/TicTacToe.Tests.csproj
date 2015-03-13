@@ -40,6 +40,9 @@
     <Compile Include="BoardTests.cs" />
     <Compile Include="GameTests.cs" />
     <Compile Include="StubPlayer.cs" />
+    <Compile Include="ComputerPlayerTests.cs" />
+    <Compile Include="HumanPlayerTests.cs" />
+    <Compile Include="HumanPlayer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

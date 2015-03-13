@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace TicTacToe
@@ -24,9 +25,9 @@ namespace TicTacToe
             positions = new Mark[9];
         }
 
-        public void AddMove(Mark mark, int position)
+		public void AddMove(Move move)
         {
-            positions[position] = mark;
+			positions[move.position] = move.mark;
         }
 
         public Mark GetMarkAtPosition(int position)
@@ -38,7 +39,7 @@ namespace TicTacToe
         {
             var lines = new List<Line>();
             foreach (var l in LINE_POSITIONS) {
-				lines.Add (new Line (positions [l [0]], positions [l [1]], positions [l [2]]));
+				lines.Add (new Line (positions [l[0]], positions [l [1]], positions [l [2]]));
 			}
             return lines;
         }
@@ -58,15 +59,19 @@ namespace TicTacToe
 
         public class Line
         {
-            private Mark m1;
-            private Mark m2;
-            private Mark m3;
 
-            public Line(Mark m1, Mark m2, Mark m3)
+            private readonly Mark[] marks;
+
+            public Line(params Mark[] marks)
             {
-                this.m1 = m1;
-                this.m2 = m2;
-                this.m3 = m3;
+                this.marks = marks;
+            }
+
+            public Mark[] Marks
+            {
+              get{
+                return marks;
+              }
             }
 
             public override bool Equals(System.Object o)
@@ -82,20 +87,22 @@ namespace TicTacToe
                     return false;
                 }
 
-                return this.m1 == l2.m1 && this.m2 == l2.m2 && this.m3 == l2.m3;
+                return Enumerable.SequenceEqual(marks, l2.Marks);
             }
 
             public override int GetHashCode()
             {
-                int result = m1.GetHashCode();
-                result = (result * 397) ^ m2.GetHashCode();
-                result = (result * 397) ^ m3.GetHashCode();
-                return result;
+                return marks.GetHashCode();
+            }
+
+            public bool ContainSameMark()
+            {
+                return marks.All(e => e==marks[0] && e != Mark.EMPTY);
             }
 
             public override string ToString()
             {
-                return String.Format("{0},{1},{2}", m1, m2, m3);
+                return string.Format(",", marks);
             }
 
         }
