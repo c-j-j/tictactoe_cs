@@ -2,6 +2,6 @@ namespace TicTacToe
 {
 	public interface Player
 	{
-		Move GetMove ();
+		Move GetMove (Game game);
 	}
 }

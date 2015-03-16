@@ -3,7 +3,7 @@ namespace TicTacToe
 	public class ComputerPlayer : Player
 	{
 
-		public Move GetMove ()
+		public Move GetMove (Game game)
 		{
 			return new Move(Mark.X, 0);
 		}

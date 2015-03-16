@@ -9,9 +9,21 @@ namespace TicTacToe
 			this.nextMove = nextMove;
 		}
 
-		public Move GetMove ()
+		public Move GetMove (Game game)
 		{
 			return new Move(Mark.X, nextMove);
 		}
+
+        public Mark Mark{
+            get{
+                return Mark.X;
+            }
+        }
+
+        public int NextMove{
+            get{
+                return nextMove;
+            }
+        }
 	}
 }

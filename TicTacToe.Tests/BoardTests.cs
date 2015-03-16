@@ -65,6 +65,19 @@ namespace TicTacToe.Tests
             Assert.IsTrue(line.ContainSameMark());
         }
 
+        [Test]
+        public void PositionIsInRange()
+        {
+            Assert.IsTrue(board.IsPositionInRange(0));
+        }
+
+        [Test]
+        public void PositionIsNotInRange()
+        {
+            Assert.IsFalse(board.IsPositionInRange(-1));
+            Assert.IsFalse(board.IsPositionInRange(Board.BOARD_SIZE));
+        }
+
 		void AddMoveToBoard (Board b, Mark mark, int position)
 		{
 			b.AddMove (new Move (mark, position));

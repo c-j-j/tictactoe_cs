@@ -24,7 +24,7 @@ namespace TicTacToe.Tests
 		{
 			player1.PrepareMove (0);
 			game.PlayTurn ();
-			Assert.AreEqual (player1.GetMove().mark, board.GetMarkAtPosition (player1.GetMove ().position));
+			Assert.AreEqual (player1.Mark, board.GetMarkAtPosition (player1.NextMove));
 		}
 
 		[Test]
@@ -33,7 +33,7 @@ namespace TicTacToe.Tests
 			AddMoveToBoard (Mark.O, 0);
 			player2.PrepareMove (1);
 			game.PlayTurn ();
-			Assert.AreEqual (player2.GetMove().mark, board.GetMarkAtPosition (player2.GetMove ().position));
+			Assert.AreEqual (player2.Mark, board.GetMarkAtPosition (player2.NextMove));
 		}
 
 		[Test]
@@ -100,6 +100,25 @@ namespace TicTacToe.Tests
 			Game copiedGame = game.CopyGameWithNewMove (new Move(Mark.X, 0));
 			Assert.AreEqual (copiedGame.Board.GetMarkAtPosition (0), Mark.X);
 		}
+
+        [Test]
+        public void ValidatesMoveWhichIsWithinRangeAndIsCurrentlyEmpty()
+        {
+            Assert.IsTrue(game.IsMoveValid(new Move(Mark.X, 0)));
+        }
+
+        [Test]
+        public void InvalidatesMoveWhereItAlreadyExists()
+        {
+            AddMoveToBoard(Mark.O, 0);
+            Assert.IsFalse(game.IsMoveValid(new Move(Mark.X, 0)));
+        }
+
+        [Test]
+        public void InvalidatesMoveThatIsNotWithinBoardRange()
+        {
+            Assert.IsFalse(game.IsMoveValid(new Move(Mark.X, -1)));
+        }
 
 		void AddMoveToBoard (Mark mark, int position)
 		{

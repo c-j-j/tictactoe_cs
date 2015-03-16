@@ -1,0 +1,5 @@
+Added nunit-console4 to path
+
+sudo ln -s /Library/Frameworks/Mono.framework/Commands/nunit-console4 nunit-console4
+
+nunit-console.exe needs to point to nunit-console4

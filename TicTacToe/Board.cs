@@ -7,6 +7,7 @@ namespace TicTacToe
     public class Board
     {
         readonly private Mark[] positions;
+        public const int BOARD_SIZE = 9;
 
         public static readonly int[][] LINE_POSITIONS =
             {
@@ -22,17 +23,22 @@ namespace TicTacToe
 
         public Board()
         {
-            positions = new Mark[9];
+            positions = new Mark[BOARD_SIZE];
         }
 
 		public void AddMove(Move move)
         {
-			positions[move.position] = move.mark;
+			positions[move.Position] = move.Mark;
         }
 
         public Mark GetMarkAtPosition(int position)
         {
             return positions[position];
+        }
+
+        public bool IsPositionInRange(int position)
+        {
+            return !(position < 0 || position >= BOARD_SIZE);
         }
 
         public List<Line> GetLines()

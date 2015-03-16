@@ -10,7 +10,7 @@ namespace TicTacToe.Tests
 		[Test]
 		public void CalculatesMove ()
 		{
-			var computerPlayer = new ComputerPlayer ();
+			//var computerPlayer = new ComputerPlayer ();
 		}
 	}
 }
