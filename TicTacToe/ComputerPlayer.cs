@@ -10,7 +10,7 @@ namespace TicTacToe
             }
         }
 
-        public Move GetMove (Game game)
+        public Move GetMove(Game game)
         {
             return new Move(Mark.X, 0);
         }

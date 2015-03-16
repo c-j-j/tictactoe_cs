@@ -5,7 +5,8 @@ namespace TicTacToe
         private readonly Game game;
         private readonly UserInterface userInterface;
 
-        public ConsoleGameDriver(Game game, UserInterface userInterface){
+        public ConsoleGameDriver(Game game, UserInterface userInterface)
+        {
             this.userInterface = userInterface;
             this.game = game;
         }
@@ -30,7 +31,8 @@ namespace TicTacToe
             game.PlayTurn();
         }
 
-        private bool GameIsInPlay(){
+        private bool GameIsInPlay()
+        {
             return !game.IsGameOver();
         }
 

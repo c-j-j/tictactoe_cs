@@ -1,8 +1,8 @@
 namespace TicTacToe
 {
-	public class StubPlayer : Player
-	{
-		int nextMove;
+    public class StubPlayer : Player
+    {
+        int nextMove;
         private Mark mark;
 
         public StubPlayer(Mark mark)
@@ -15,26 +15,30 @@ namespace TicTacToe
             this.mark = Mark.X;
         }
 
-		public void PrepareMove (int nextMove)
-		{
-			this.nextMove = nextMove;
-		}
+        public void PrepareMove(int nextMove)
+        {
+            this.nextMove = nextMove;
+        }
 
-		public Move GetMove (Game game)
-		{
-			return new Move(mark, nextMove);
-		}
+        public Move GetMove(Game game)
+        {
+            return new Move(mark, nextMove);
+        }
 
-        public Mark Mark{
-            get{
+        public Mark Mark
+        {
+            get
+            {
                 return mark;
             }
         }
 
-        public int NextMove{
-            get{
+        public int NextMove
+        {
+            get
+            {
                 return nextMove;
             }
         }
-	}
+    }
 }

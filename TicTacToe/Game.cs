@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace TicTacToe
 {
@@ -25,7 +26,8 @@ namespace TicTacToe
             return IsPositionWithinRange(move) && IsPositionEmpty(move);
         }
 
-        public bool IsGameOver(){
+        public bool IsGameOver()
+        {
             return HasBeenWon() || HasBeenDrawn();
         }
 
@@ -55,7 +57,8 @@ namespace TicTacToe
 
         public Mark CurrentPlayerMark
         {
-            get{
+            get
+            {
                 return GetCurrentPlayer().Mark;
             }
         }

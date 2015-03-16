@@ -2,11 +2,13 @@ namespace TicTacToe
 {
     public static class TestGameFactory
     {
-        public static Game NewGame(){
+        public static Game NewGame()
+        {
             return new Game(new Board(), new StubPlayer(), new StubPlayer());
         }
 
-        public static Game OneTurnGame(){
+        public static Game OneTurnGame()
+        {
             var stubPlayer1 = new StubPlayer(Mark.X);
             var stubPlayer2 = new StubPlayer(Mark.O);
             var board = new Board();
@@ -18,7 +20,8 @@ namespace TicTacToe
             return new Game(board, stubPlayer1, stubPlayer2);
         }
 
-        public static Game DrawnGame(){
+        public static Game DrawnGame()
+        {
 
             var stubPlayer1 = new StubPlayer(Mark.X);
             var stubPlayer2 = new StubPlayer(Mark.O);

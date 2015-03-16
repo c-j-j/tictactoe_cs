@@ -12,12 +12,12 @@ namespace TicTacToe.Tests
         private bool printBoardCalled = false;
         private bool printNextPlayerCalled = false;
 
-        public void PrepareUserPositions (params int[] positions)
+        public void PrepareUserPositions(params int[] positions)
         {
             this.positions = new Queue(positions);
         }
 
-        public int GetUserPosition ()
+        public int GetUserPosition()
         {
             return (int)positions.Dequeue();
         }
@@ -58,7 +58,8 @@ namespace TicTacToe.Tests
             printBoardCalled = true;
         }
 
-        public bool PrintBoardCalled(){
+        public bool PrintBoardCalled()
+        {
             return printBoardCalled;
         }
 
@@ -67,7 +68,8 @@ namespace TicTacToe.Tests
             printNextPlayerCalled = true;
         }
 
-        public bool PrintNextPlayerCalled(){
+        public bool PrintNextPlayerCalled()
+        {
             return printNextPlayerCalled;
         }
     }

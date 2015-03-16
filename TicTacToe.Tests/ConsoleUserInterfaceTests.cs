@@ -12,13 +12,15 @@ namespace TicTacToe.Tests
         StringWriter stringWriter;
 
         [SetUp]
-        public void Setup(){
+        public void Setup()
+        {
             userInterface = new ConsoleUserInterface();
             stringWriter = new StringWriter();
             Console.SetOut(stringWriter);
         }
 
-        [TearDown] public void TearDown(){
+        [TearDown] public void TearDown()
+        {
             stringWriter.Dispose();
         }
 

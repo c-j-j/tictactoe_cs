@@ -2,28 +2,29 @@
 
 namespace TicTacToe.Tests
 {
-	[TestFixture]
-	public class HumanPlayerTests
-	{
+    [TestFixture]
+    public class HumanPlayerTests
+    {
         StubInterface userInterface;
         HumanPlayer humanPlayer;
         Game game;
 
         [SetUp]
-        public void Setup(){
+        public void Setup()
+        {
             userInterface = new StubInterface();
             game = TestGameFactory.NewGame();
             humanPlayer = new HumanPlayer(Mark.O, userInterface);
         }
 
-		[Test]
-		public void GetsMoveFromUserInterface ()
-		{
+        [Test]
+        public void GetsMoveFromUserInterface()
+        {
             userInterface.PrepareUserPositions(0);
-            var move = humanPlayer.GetMove (game);
-			Assert.AreEqual (Mark.O, move.Mark);
-			Assert.AreEqual (0, move.Position);
-		}
+            var move = humanPlayer.GetMove(game);
+            Assert.AreEqual(Mark.O, move.Mark);
+            Assert.AreEqual(0, move.Position);
+        }
 
         [Test]
         public void DoesNotReturnInvalidMove()
@@ -32,5 +33,5 @@ namespace TicTacToe.Tests
             humanPlayer.GetMove(game);
             Assert.IsTrue(userInterface.PrintErrorMessageCalled());
         }
-	}
+    }
 }

@@ -35,8 +35,10 @@ namespace TicTacToe
         {
             var boardStringBuilder = new StringBuilder();
             var counter = 1;
-            foreach(Board.Line row in board.GetRows()){
-                foreach(Mark mark in row.Marks){
+            foreach (Board.Line row in board.GetRows())
+            {
+                foreach (Mark mark in row.Marks)
+                {
                     boardStringBuilder.Append(FormatCell(mark, counter));
                     counter++;
                 }
@@ -44,12 +46,6 @@ namespace TicTacToe
             }
 
             WriteToConsole(boardStringBuilder.ToString());
-        }
-
-        string FormatCell(Mark mark, int counter)
-        {
-            var cell =  mark != Mark.EMPTY ? mark.ToString() : counter.ToString();
-            return String.Format(CELL_FORMAT, cell);
         }
 
         public void PrintNextPlayer(Mark nextPlayerMark)
@@ -60,6 +56,12 @@ namespace TicTacToe
         private string ReadLineFromUser()
         {
             return Console.ReadLine();
+        }
+
+        private string FormatCell(Mark mark, int counter)
+        {
+            var cell = mark != Mark.EMPTY ? mark.ToString() : counter.ToString();
+            return String.Format(CELL_FORMAT, cell);
         }
 
         private void WriteToConsole(string message)

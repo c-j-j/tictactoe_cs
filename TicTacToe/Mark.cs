@@ -2,8 +2,6 @@ namespace TicTacToe
 {
     public enum Mark
     {
-        EMPTY,
-        X,
-        O,
+        EMPTY, X, O
     }
 }

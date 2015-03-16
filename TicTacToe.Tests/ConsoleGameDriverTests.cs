@@ -9,7 +9,8 @@ namespace TicTacToe.Tests
         StubInterface stubInterface;
 
         [SetUp]
-        public void Setup(){
+        public void Setup()
+        {
             stubInterface = new StubInterface();
         }
 
