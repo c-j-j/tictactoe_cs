@@ -78,6 +78,13 @@ namespace TicTacToe.Tests
             Assert.IsFalse(board.IsPositionInRange(Board.BOARD_SIZE));
         }
 
+        [Test]
+        public void ContainsRows()
+        {
+            var rows = board.Rows;
+            Assert.AreEqual(3, rows.Count);
+        }
+
 		void AddMoveToBoard (Board b, Mark mark, int position)
 		{
 			b.AddMove (new Move (mark, position));

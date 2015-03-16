@@ -21,6 +21,13 @@ namespace TicTacToe
                 new int[]{ 2, 4, 6 },
             };
 
+        public static readonly int[][] ROW_POSITIONS =
+        {
+                new int[]{ 0, 1, 2 },
+                new int[]{ 3, 4, 5 },
+                new int[]{ 6, 7, 8 }
+        };
+
         public Board()
         {
             positions = new Mark[BOARD_SIZE];
@@ -41,13 +48,16 @@ namespace TicTacToe
             return !(position < 0 || position >= BOARD_SIZE);
         }
 
+        public List<Line> Rows
+        {
+            get{
+                return BuildLines(ROW_POSITIONS);
+            }
+        }
+
         public List<Line> GetLines()
         {
-            var lines = new List<Line>();
-            foreach (var l in LINE_POSITIONS) {
-				lines.Add (new Line (positions [l[0]], positions [l [1]], positions [l [2]]));
-			}
-            return lines;
+            return BuildLines(LINE_POSITIONS);
         }
 
         public List<int> GetAvailablePositions()
@@ -63,9 +73,18 @@ namespace TicTacToe
             return emptyPositions;
         }
 
+        private List<Line> BuildLines(int[][] line_positions)
+        {
+            var lines = new List<Line>();
+            foreach (var l in line_positions)
+            {
+                lines.Add(new Line(positions[l[0]], positions[l[1]], positions[l[2]]));
+            }
+            return lines;
+        }
+
         public class Line
         {
-
             private readonly Mark[] marks;
 
             public Line(params Mark[] marks)
