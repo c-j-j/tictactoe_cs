@@ -70,6 +70,7 @@ namespace TicTacToe.Tests
 			AddMoveToBoard (Mark.X, 7);
 			AddMoveToBoard (Mark.O, 8);
 			Assert.IsTrue (game.HasBeenDrawn ());
+			Assert.IsTrue (game.IsGameOver ());
 		}
 
 		[Test]
@@ -79,6 +80,7 @@ namespace TicTacToe.Tests
 			AddMoveToBoard (Mark.O, 1);
 			AddMoveToBoard (Mark.O, 2);
 			Assert.AreEqual (game.WinningMark (), Mark.O);
+			Assert.IsTrue (game.IsGameOver ());
 		}
 
 		[Test]
@@ -118,6 +120,12 @@ namespace TicTacToe.Tests
         public void InvalidatesMoveThatIsNotWithinBoardRange()
         {
             Assert.IsFalse(game.IsMoveValid(new Move(Mark.X, -1)));
+        }
+
+        [Test]
+        public void HasCurrentPlayerMark()
+        {
+            Assert.AreEqual(game.CurrentPlayerMark, player1.Mark);
         }
 
 		void AddMoveToBoard (Mark mark, int position)

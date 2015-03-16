@@ -1,12 +1,19 @@
 namespace TicTacToe
 {
-	public class ComputerPlayer : Player
-	{
+    public class ComputerPlayer : Player
+    {
+        public Mark Mark
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+        }
 
-		public Move GetMove (Game game)
-		{
-			return new Move(Mark.X, 0);
-		}
+        public Move GetMove (Game game)
+        {
+            return new Move(Mark.X, 0);
+        }
 
-	}
+    }
 }

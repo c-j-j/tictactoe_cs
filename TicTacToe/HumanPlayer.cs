@@ -11,6 +11,13 @@ namespace TicTacToe.Tests
             this.mark = mark;
         }
 
+        public Mark Mark
+        {
+            get{
+                return mark;
+            }
+        }
+
         public Move GetMove(Game game)
         {
             while (true)

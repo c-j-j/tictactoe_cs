@@ -25,6 +25,10 @@ namespace TicTacToe
             return IsPositionWithinRange(move) && IsPositionEmpty(move);
         }
 
+        public bool IsGameOver(){
+            return HasBeenWon() || HasBeenDrawn();
+        }
+
         public bool HasBeenWon()
         {
             foreach (Board.Line line in board.GetLines ())
@@ -49,6 +53,12 @@ namespace TicTacToe
             return Mark.EMPTY;
         }
 
+        public Mark CurrentPlayerMark
+        {
+            get{
+                return GetCurrentPlayer().Mark;
+            }
+        }
         private bool BoardIsFull()
         {
             return board.GetAvailablePositions().Count == 0;

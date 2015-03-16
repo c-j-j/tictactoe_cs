@@ -42,6 +42,8 @@
     <Compile Include="Move.cs" />
     <Compile Include="UserInterface.cs" />
     <Compile Include="HumanPlayer.cs" />
+    <Compile Include="ConsoleUserInterface.cs" />
+    <Compile Include="ConsoleGameDriver.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
