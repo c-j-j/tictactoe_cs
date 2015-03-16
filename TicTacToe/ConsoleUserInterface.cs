@@ -11,10 +11,9 @@ namespace TicTacToe
         public const string NEXT_PLAYER_MESSAGE = "{0}'s turn.\n";
         public const string CELL_FORMAT = "{0} |";
 
-
         public int GetUserPosition()
         {
-            return int.Parse(ReadLineFromUser());
+            return int.Parse(ReadLineFromUser()) - 1;
         }
 
         public void PrintErrorMessage()
@@ -32,12 +31,11 @@ namespace TicTacToe
             WriteToConsole(String.Format(WINNER_MESSAGE, winningMark));
         }
 
-
         public void PrintBoard(Board board)
         {
             var boardStringBuilder = new StringBuilder();
             var counter = 1;
-            foreach(Board.Line row in board.Rows){
+            foreach(Board.Line row in board.GetRows()){
                 foreach(Mark mark in row.Marks){
                     boardStringBuilder.Append(FormatCell(mark, counter));
                     counter++;

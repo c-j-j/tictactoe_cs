@@ -1,4 +1,4 @@
-namespace TicTacToe.Tests
+namespace TicTacToe
 {
     public class HumanPlayer : Player
     {

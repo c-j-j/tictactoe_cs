@@ -10,22 +10,22 @@ namespace TicTacToe
         public const int BOARD_SIZE = 9;
 
         public static readonly int[][] LINE_POSITIONS =
-            {
-                new int[]{ 0, 1, 2 },
-                new int[]{ 3, 4, 5 },
-                new int[]{ 6, 7, 8 },
-                new int[]{ 0, 3, 6 },
-                new int[]{ 1, 4, 7 },
-                new int[]{ 2, 5, 8 },
-                new int[]{ 0, 4, 8 },
-                new int[]{ 2, 4, 6 },
-            };
+        {
+            new int[]{ 0, 1, 2 },
+            new int[]{ 3, 4, 5 },
+            new int[]{ 6, 7, 8 },
+            new int[]{ 0, 3, 6 },
+            new int[]{ 1, 4, 7 },
+            new int[]{ 2, 5, 8 },
+            new int[]{ 0, 4, 8 },
+            new int[]{ 2, 4, 6 },
+        };
 
         public static readonly int[][] ROW_POSITIONS =
         {
-                new int[]{ 0, 1, 2 },
-                new int[]{ 3, 4, 5 },
-                new int[]{ 6, 7, 8 }
+            new int[]{ 0, 1, 2 },
+            new int[]{ 3, 4, 5 },
+            new int[]{ 6, 7, 8 }
         };
 
         public Board()
@@ -33,9 +33,9 @@ namespace TicTacToe
             positions = new Mark[BOARD_SIZE];
         }
 
-		public void AddMove(Move move)
+        public void AddMove(Move move)
         {
-			positions[move.Position] = move.Mark;
+            positions[move.Position] = move.Mark;
         }
 
         public Mark GetMarkAtPosition(int position)
@@ -48,11 +48,9 @@ namespace TicTacToe
             return !(position < 0 || position >= BOARD_SIZE);
         }
 
-        public List<Line> Rows
+        public List<Line> GetRows()
         {
-            get{
-                return BuildLines(ROW_POSITIONS);
-            }
+            return BuildLines(ROW_POSITIONS);
         }
 
         public List<Line> GetLines()
@@ -67,7 +65,7 @@ namespace TicTacToe
             for (int i = 0; i < positions.Length; i++)
             {
                 if(positions[i]==Mark.EMPTY){
-                   emptyPositions.Add(i);
+                    emptyPositions.Add(i);
                 }
             }
             return emptyPositions;
@@ -94,9 +92,9 @@ namespace TicTacToe
 
             public Mark[] Marks
             {
-              get{
-                return marks;
-              }
+                get{
+                    return marks;
+                }
             }
 
             public override bool Equals(System.Object o)

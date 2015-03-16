@@ -4,7 +4,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{27F727D7-A7A8-41E0-9AE6-76CE97745051}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TicTacToe</RootNamespace>
     <AssemblyName>TicTacToe</AssemblyName>
@@ -44,6 +44,7 @@
     <Compile Include="HumanPlayer.cs" />
     <Compile Include="ConsoleUserInterface.cs" />
     <Compile Include="ConsoleGameDriver.cs" />
+    <Compile Include="Main.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

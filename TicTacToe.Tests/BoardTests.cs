@@ -81,7 +81,7 @@ namespace TicTacToe.Tests
         [Test]
         public void ContainsRows()
         {
-            var rows = board.Rows;
+            var rows = board.GetRows();
             Assert.AreEqual(3, rows.Count);
         }
 

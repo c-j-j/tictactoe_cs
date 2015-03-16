@@ -15,6 +15,7 @@ namespace TicTacToe.Tests
             game = TestGameFactory.NewGame();
             humanPlayer = new HumanPlayer(Mark.O, userInterface);
         }
+
 		[Test]
 		public void GetsMoveFromUserInterface ()
 		{

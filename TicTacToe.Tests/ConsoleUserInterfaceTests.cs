@@ -23,11 +23,11 @@ namespace TicTacToe.Tests
         }
 
         [Test]
-        public void GetsUserPositionFromConsole()
+        public void GetsUserPositionFromConsoleAndConvertsToZeroBasedIndex()
         {
             Console.SetIn(new StringReader("1"));
             var position = userInterface.GetUserPosition();
-            Assert.AreEqual(1, position);
+            Assert.AreEqual(0, position);
         }
 
         [Test]
