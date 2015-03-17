@@ -37,7 +37,7 @@ namespace TicTacToe.Tests
             return printDrawnOutcomeCalled;
         }
 
-        public bool PrintErrorMessageCalled()
+        public bool PrintInvalidMoveMessageCalled()
         {
             return printErrorMessageCalled;
         }

@@ -31,7 +31,7 @@ namespace TicTacToe.Tests
         {
             userInterface.PrepareUserPositions(-1, 0);
             humanPlayer.GetMove(game);
-            Assert.IsTrue(userInterface.PrintErrorMessageCalled());
+            Assert.IsTrue(userInterface.PrintInvalidMoveMessageCalled());
         }
     }
 }
