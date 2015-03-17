@@ -17,15 +17,15 @@ namespace TicTacToe
             Move move;
             while (!game.IsMoveValid(move = GetMoveFromUser()))
             {
-                PrintErrorMessage();
+                PrintInvalidMoveError();
             }
 
             return move;
         }
 
-        private void PrintErrorMessage()
+        private void PrintInvalidMoveError()
         {
-            userInterface.PrintErrorMessage();
+            userInterface.PrintInvalidMoveError();
         }
 
         private Move GetMoveFromUser()

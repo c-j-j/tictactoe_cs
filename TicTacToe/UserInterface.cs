@@ -3,7 +3,7 @@ namespace TicTacToe
     public interface UserInterface
     {
         int GetUserPosition();
-        void PrintErrorMessage();
+        void PrintInvalidMoveError();
         void PrintDrawnOutcome();
         void PrintWinOutcome(Mark winningMark);
         void PrintBoard(Board board);

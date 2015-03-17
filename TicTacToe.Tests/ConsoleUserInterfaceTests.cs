@@ -42,7 +42,7 @@ namespace TicTacToe.Tests
         [Test]
         public void PrintsErrorMessage()
         {
-            userInterface.PrintErrorMessage();
+            userInterface.PrintInvalidMoveError();
             Assert.That(stringWriter.ToString(), Is.StringContaining(ConsoleUserInterface.INVALID_MOVE_ERROR));
         }
 

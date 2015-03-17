@@ -19,7 +19,7 @@ namespace TicTacToe
             return userPosition - CELL_OFFSET;
         }
 
-        public void PrintErrorMessage()
+        public void PrintInvalidMoveError()
         {
             WriteToConsole(INVALID_MOVE_ERROR);
         }

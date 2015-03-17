@@ -22,7 +22,7 @@ namespace TicTacToe.Tests
             return (int)positions.Dequeue();
         }
 
-        public void PrintErrorMessage()
+        public void PrintInvalidMoveError()
         {
             printErrorMessageCalled = true;
         }
