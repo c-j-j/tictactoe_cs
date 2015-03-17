@@ -9,7 +9,7 @@ namespace TicTacToe
             Board board = new Board();
             var userInterface = new ConsoleUserInterface();
             Game game = new Game(board, new HumanPlayer(Mark.X, userInterface), new HumanPlayer(Mark.O, userInterface));
-            new ConsoleGameDriver(game, userInterface).Run();
+            new GameDriver(game, userInterface).Run();
         }
     }
 }

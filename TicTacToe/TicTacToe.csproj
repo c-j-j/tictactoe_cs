@@ -43,7 +43,7 @@
     <Compile Include="UserInterface.cs" />
     <Compile Include="HumanPlayer.cs" />
     <Compile Include="ConsoleUserInterface.cs" />
-    <Compile Include="ConsoleGameDriver.cs" />
+    <Compile Include="GameDriver.cs" />
     <Compile Include="Main.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

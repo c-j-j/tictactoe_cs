@@ -47,7 +47,7 @@
     <Compile Include="StubInterface.cs" />
     <Compile Include="TestGameFactory.cs" />
     <Compile Include="ConsoleUserInterfaceTests.cs" />
-    <Compile Include="ConsoleGameDriverTests.cs" />
+    <Compile Include="GameDriverTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
