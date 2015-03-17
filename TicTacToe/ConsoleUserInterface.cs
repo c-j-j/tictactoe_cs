@@ -5,10 +5,10 @@ namespace TicTacToe
 {
     public class ConsoleUserInterface : UserInterface
     {
-        public const string INVALID_MOVE_ERROR = "Invalid Move Given\n";
-        public const string DRAWN_MESSAGE = "Game ended in draw.\n";
-        public const string WINNER_MESSAGE = "{0} has won.\n";
-        public const string NEXT_PLAYER_MESSAGE = "{0}'s turn.\n";
+        public const string INVALID_MOVE_ERROR = "Invalid Move Given";
+        public const string DRAWN_MESSAGE = "Game ended in draw.";
+        public const string WINNER_MESSAGE = "{0} has won.";
+        public const string NEXT_PLAYER_MESSAGE = "{0}'s turn.";
         public const string CELL_FORMAT = " {0} |";
         public const int CELL_OFFSET = 1;
 
@@ -69,7 +69,7 @@ namespace TicTacToe
 
         private void WriteToConsole(string message)
         {
-            Console.Write(message);
+            Console.WriteLine(message);
         }
 
     }

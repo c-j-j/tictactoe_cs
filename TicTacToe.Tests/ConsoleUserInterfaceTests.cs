@@ -43,28 +43,28 @@ namespace TicTacToe.Tests
         public void PrintsErrorMessage()
         {
             userInterface.PrintErrorMessage();
-            Assert.AreEqual(ConsoleUserInterface.INVALID_MOVE_ERROR, stringWriter.ToString());
+            Assert.That(stringWriter.ToString(), Is.StringContaining(ConsoleUserInterface.INVALID_MOVE_ERROR));
         }
 
         [Test]
         public void PrintsDrawnOutcome()
         {
             userInterface.PrintDrawnOutcome();
-            Assert.AreEqual(ConsoleUserInterface.DRAWN_MESSAGE, stringWriter.ToString());
+            Assert.That(stringWriter.ToString(), Is.StringContaining(ConsoleUserInterface.DRAWN_MESSAGE));
         }
 
         [Test]
         public void PrintsWinOutcome()
         {
             userInterface.PrintWinOutcome(Mark.X);
-            Assert.AreEqual(String.Format(ConsoleUserInterface.WINNER_MESSAGE, Mark.X), stringWriter.ToString());
+            Assert.That(stringWriter.ToString(), Is.StringContaining(String.Format(ConsoleUserInterface.WINNER_MESSAGE, Mark.X)));
         }
 
         [Test]
         public void PrintsNextPlayer()
         {
             userInterface.PrintNextPlayer(Mark.X);
-            Assert.AreEqual(String.Format(ConsoleUserInterface.NEXT_PLAYER_MESSAGE, Mark.X), stringWriter.ToString());
+            Assert.That(stringWriter.ToString(), Is.StringContaining(String.Format(ConsoleUserInterface.NEXT_PLAYER_MESSAGE, Mark.X)));
         }
 
         [Test]
