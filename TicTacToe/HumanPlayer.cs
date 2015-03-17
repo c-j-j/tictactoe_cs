@@ -14,18 +14,23 @@ namespace TicTacToe
 
         public Move GetMove(Game game)
         {
-            //TODO clean up
-            while (true)
+            Move move;
+            while (!game.IsMoveValid(move = GetMoveFromUser()))
             {
-                var move = new Move(Mark, userInterface.GetUserPosition());
-                if (game.IsMoveValid(move))
-                {
-                    return move;
-                }
-
-                userInterface.PrintErrorMessage();
+                PrintErrorMessage();
             }
 
+            return move;
+        }
+
+        private void PrintErrorMessage()
+        {
+            userInterface.PrintErrorMessage();
+        }
+
+        private Move GetMoveFromUser()
+        {
+            return new Move(Mark, userInterface.GetUserPosition());
         }
 
     }

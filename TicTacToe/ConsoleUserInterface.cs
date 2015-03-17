@@ -9,7 +9,7 @@ namespace TicTacToe
         public const string DRAWN_MESSAGE = "Game ended in draw.\n";
         public const string WINNER_MESSAGE = "{0} has won.\n";
         public const string NEXT_PLAYER_MESSAGE = "{0}'s turn.\n";
-        public const string CELL_FORMAT = "{0} |";
+        public const string CELL_FORMAT = " {0} |";
 
         public int GetUserPosition()
         {

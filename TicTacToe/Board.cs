@@ -71,14 +71,12 @@ namespace TicTacToe
 
         public class Line
         {
-            private readonly Mark[] marks;
-
             public Line(params Mark[] marks)
             {
-                this.marks = marks;
+                Marks = marks;
             }
 
-            public IEnumerable<Mark> Marks { get{ return marks; } }
+            public IEnumerable<Mark> Marks { get; private set; }
 
             //TODO only used in a unit test, transfer logic to unit test
             public override bool Equals(System.Object o)
@@ -94,22 +92,17 @@ namespace TicTacToe
                     return false;
                 }
 
-                return Enumerable.SequenceEqual(marks, l2.Marks);
+                return Enumerable.SequenceEqual(Marks, l2.Marks);
             }
 
             public override int GetHashCode()
             {
-                return marks.GetHashCode();
+                return Marks.GetHashCode();
             }
 
             public bool ContainSameMark()
             {
-                return marks.All(e => e==marks[0] && e != Mark.EMPTY);
-            }
-
-            public override string ToString()
-            {
-                return string.Format(",", marks);
+                return Marks.Distinct().Count() == 1 && Marks.First() != Mark.EMPTY;
             }
 
         }
