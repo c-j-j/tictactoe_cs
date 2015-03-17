@@ -9,6 +9,7 @@ namespace TicTacToe
         readonly private Mark[] positions;
         public const int BOARD_SIZE = 9;
 
+        //TODO duplication and ugly code. Fix
         public static readonly int[][] LINE_POSITIONS =
         {
             new int[]{ 0, 1, 2 },

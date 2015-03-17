@@ -1,31 +1,16 @@
 namespace TicTacToe
 {
-    public struct Move
+    public class Move
     {
-        private readonly Mark mark;
-        private readonly int position;
-
         public Move(Mark mark, int position)
         {
-            this.position = position;
-            this.mark = mark;
+            Position = position;
+            Mark = mark;
         }
 
-        public int Position
-        {
-            get
-            {
-                return position;
-            }
-        }
+        public int Position{ get;  set; }
+        public Mark Mark{get; private set; }
 
-        public Mark Mark
-        {
-            get
-            {
-                return mark;
-            }
-        }
     }
 
 }

@@ -2,27 +2,22 @@ namespace TicTacToe
 {
     public class HumanPlayer : Player
     {
-        private Mark mark;
         private readonly UserInterface userInterface;
 
         public HumanPlayer(Mark mark, UserInterface userInterface)
         {
             this.userInterface = userInterface;
-            this.mark = mark;
+            Mark = mark;
         }
 
-        public Mark Mark
-        {
-            get{
-                return mark;
-            }
-        }
+        public Mark Mark { get; private set; }
 
         public Move GetMove(Game game)
         {
+            //TODO clean up
             while (true)
             {
-                var move = new Move(mark, userInterface.GetUserPosition());
+                var move = new Move(Mark, userInterface.GetUserPosition());
                 if (game.IsMoveValid(move))
                 {
                     return move;
