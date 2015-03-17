@@ -5,21 +5,23 @@ namespace TicTacToe
 {
     public class ConsoleUserInterface : UserInterface
     {
-        public const string ERROR_MESSAGE = "Error Occurred\n";
+        public const string INVALID_MOVE_ERROR = "Invalid Move Given\n";
         public const string DRAWN_MESSAGE = "Game ended in draw.\n";
         public const string WINNER_MESSAGE = "{0} has won.\n";
         public const string NEXT_PLAYER_MESSAGE = "{0}'s turn.\n";
         public const string CELL_FORMAT = " {0} |";
+        public const int CELL_OFFSET = 1;
 
         public int GetUserPosition()
         {
-            //TODO Fails when non-integer given
-            return int.Parse(ReadLineFromUser()) - 1;
+            int userPosition;
+            int.TryParse(ReadLineFromUser(), out userPosition);
+            return userPosition - CELL_OFFSET;
         }
 
         public void PrintErrorMessage()
         {
-            WriteToConsole(ERROR_MESSAGE);
+            WriteToConsole(INVALID_MOVE_ERROR);
         }
 
         public void PrintDrawnOutcome()
@@ -35,7 +37,7 @@ namespace TicTacToe
         public void PrintBoard(Board board)
         {
             var boardStringBuilder = new StringBuilder();
-            var counter = 1;
+            var counter = CELL_OFFSET;
             foreach (Board.Line row in board.GetRows())
             {
                 foreach (Mark mark in row.Marks)

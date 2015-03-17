@@ -7,7 +7,6 @@ namespace TicTacToe.Tests
     [TestFixture]
     public class ConsoleUserInterfaceTests
     {
-
         ConsoleUserInterface userInterface;
         StringWriter stringWriter;
 
@@ -29,14 +28,22 @@ namespace TicTacToe.Tests
         {
             Console.SetIn(new StringReader("1"));
             var position = userInterface.GetUserPosition();
-            Assert.AreEqual(0, position);
+            Assert.AreEqual(1 - ConsoleUserInterface.CELL_OFFSET, position);
+        }
+
+        [Test]
+        public void ConvertsNonIntegerInputToMinusInteger()
+        {
+            Console.SetIn(new StringReader("a"));
+            var position = userInterface.GetUserPosition();
+            Assert.AreEqual(0 - ConsoleUserInterface.CELL_OFFSET, position);
         }
 
         [Test]
         public void PrintsErrorMessage()
         {
             userInterface.PrintErrorMessage();
-            Assert.AreEqual(ConsoleUserInterface.ERROR_MESSAGE, stringWriter.ToString());
+            Assert.AreEqual(ConsoleUserInterface.INVALID_MOVE_ERROR, stringWriter.ToString());
         }
 
         [Test]
