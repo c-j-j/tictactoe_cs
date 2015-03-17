@@ -13,6 +13,7 @@ namespace TicTacToe
 
         public int GetUserPosition()
         {
+            //TODO Fails when non-integer given
             return int.Parse(ReadLineFromUser()) - 1;
         }
 
