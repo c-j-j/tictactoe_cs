@@ -2,6 +2,7 @@ using NUnit.Framework;
 using NUnit.Framework.Constraints;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace TicTacToe.Tests
 {
@@ -46,8 +47,8 @@ namespace TicTacToe.Tests
         public void GetsAvailablePositions()
         {
 			AddMoveToBoard (board, Mark.X, 0);
-            List<int> positions = board.GetAvailablePositions();
-            Assert.AreEqual(8, positions.Count);
+            IEnumerable<int> positions = board.GetAvailablePositions();
+            Assert.AreEqual(8, positions.Count());
             CollectionAssert.DoesNotContain( positions, 0);
         }
 
@@ -82,7 +83,7 @@ namespace TicTacToe.Tests
         public void ContainsRows()
         {
             var rows = board.GetRows();
-            Assert.AreEqual(3, rows.Count);
+            Assert.AreEqual(3, rows.Count());
         }
 
 		void AddMoveToBoard (Board b, Mark mark, int position)

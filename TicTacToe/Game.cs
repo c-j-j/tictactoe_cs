@@ -33,38 +33,21 @@ namespace TicTacToe
 
         public bool HasBeenWon()
         {
-            foreach (Board.Line line in board.GetLines ())
-            {
-                if (line.ContainSameMark())
-                {
-                    return true;
-                }
-            }
-            return false;
+            return board.GetLines().Any(l => l.ContainSameMark());
         }
 
+        //TODO not happy with this, seems like it could be neater
         public Mark WinningMark()
         {
-            foreach (Board.Line line in board.GetLines ())
-            {
-                if (line.ContainSameMark())
-                {
-                    return line.Marks[0];
-                }
-            }
-            return Mark.EMPTY;
+            var winningLine =  board.GetLines().FirstOrDefault(l => l.ContainSameMark());
+            return winningLine != null ? winningLine.Marks.First() : Mark.EMPTY;
         }
 
-        public Mark CurrentPlayerMark
-        {
-            get
-            {
-                return GetCurrentPlayer().Mark;
-            }
-        }
+        public Mark CurrentPlayerMark { get { return GetCurrentPlayer().Mark; } }
+
         private bool BoardIsFull()
         {
-            return board.GetAvailablePositions().Count == 0;
+            return board.GetAvailablePositions().Count() == 0;
         }
 
         public bool HasBeenDrawn()
@@ -72,7 +55,7 @@ namespace TicTacToe
             return BoardIsFull() && !HasBeenWon();
         }
 
-        public List<int> GetAvailablePositions()
+        public IEnumerable<int> GetAvailablePositions()
         {
             return board.GetAvailablePositions();
         }
@@ -84,13 +67,7 @@ namespace TicTacToe
             return new Game(boardCopy, player1, player2);
         }
 
-        public Board Board
-        {
-            get
-            {
-                return board;
-            }
-        }
+        public Board Board { get { return board; } }
 
         private Player GetCurrentPlayer()
         {
@@ -104,7 +81,7 @@ namespace TicTacToe
 
         private bool PlayerOneGoingNext()
         {
-            return board.GetAvailablePositions().Count % 2 == 1;
+            return board.GetAvailablePositions().Count() % 2 == 1;
         }
 
         private bool IsPositionWithinRange(Move move)

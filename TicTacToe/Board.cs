@@ -48,37 +48,24 @@ namespace TicTacToe
             return !(position < 0 || position >= BOARD_SIZE);
         }
 
-        public List<Line> GetRows()
+        public IEnumerable<Line> GetRows()
         {
             return BuildLines(ROW_POSITIONS);
         }
 
-        public List<Line> GetLines()
+        public IEnumerable<Line> GetLines()
         {
             return BuildLines(LINE_POSITIONS);
         }
 
-        public List<int> GetAvailablePositions()
+        public IEnumerable<int> GetAvailablePositions()
         {
-            var emptyPositions = new List<int>();
-
-            for (int i = 0; i < positions.Length; i++)
-            {
-                if(positions[i]==Mark.EMPTY){
-                    emptyPositions.Add(i);
-                }
-            }
-            return emptyPositions;
+            return Enumerable.Range(0, positions.Length).Where(i => positions[i] == Mark.EMPTY);
         }
 
-        private List<Line> BuildLines(int[][] line_positions)
+        private IEnumerable<Line> BuildLines(int[][] linePositions)
         {
-            var lines = new List<Line>();
-            foreach (var l in line_positions)
-            {
-                lines.Add(new Line(positions[l[0]], positions[l[1]], positions[l[2]]));
-            }
-            return lines;
+            return linePositions.Select(l => new Line(positions[l[0]], positions[l[1]], positions[l[2]]));
         }
 
         public class Line
@@ -90,13 +77,9 @@ namespace TicTacToe
                 this.marks = marks;
             }
 
-            public Mark[] Marks
-            {
-                get{
-                    return marks;
-                }
-            }
+            public IEnumerable<Mark> Marks { get{ return marks; } }
 
+            //TODO only used in a unit test, transfer logic to unit test
             public override bool Equals(System.Object o)
             {
                 if (o == null)
