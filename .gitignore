@@ -10,7 +10,8 @@
 *.sln.docstates
 *.sublime-workspace
 *.userprefs
-
+NUnit*
+Should*
 */test-results/
 # Build results
 

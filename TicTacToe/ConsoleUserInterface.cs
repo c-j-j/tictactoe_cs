@@ -38,6 +38,7 @@ namespace TicTacToe
         {
             var boardStringBuilder = new StringBuilder();
             var counter = CELL_OFFSET;
+
             foreach (Board.Line row in board.GetRows())
             {
                 foreach (Mark mark in row.Marks)
