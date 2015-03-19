@@ -86,6 +86,14 @@ namespace TicTacToe.Tests
             Assert.AreEqual(3, rows.Count());
         }
 
+        [Test]
+        public void CopiesBoard()
+        {
+            AddMoveToBoard(board, Mark.X, 0);
+            var boardCopy = board.Copy();
+            Assert.AreEqual(board.GetMarkAtPosition(0), boardCopy.GetMarkAtPosition(0));
+        }
+
 		void AddMoveToBoard (Board b, Mark mark, int position)
 		{
 			b.AddMove (new Move (mark, position));

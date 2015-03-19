@@ -62,7 +62,7 @@ namespace TicTacToe
 
         public Game CopyGameWithNewMove(Move move)
         {
-            Board boardCopy = board;
+            Board boardCopy = board.Copy();
             boardCopy.AddMove(move);
             return new Game(boardCopy, player1, player2);
         }

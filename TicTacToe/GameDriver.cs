@@ -1,3 +1,5 @@
+using System;
+
 namespace TicTacToe
 {
     public class GameDriver
@@ -48,9 +50,13 @@ namespace TicTacToe
             {
                 userInterface.PrintWinOutcome(game.WinningMark());
             }
-            else
+            else if (game.HasBeenDrawn())
             {
                 userInterface.PrintDrawnOutcome();
+            }
+            else
+            {
+                throw new Exception("Game ended in neither win nor draw");
             }
         }
     }

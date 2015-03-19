@@ -34,6 +34,15 @@ namespace TicTacToe
             positions = new Mark[BOARD_SIZE];
         }
 
+        private Board(Mark[] positions){
+           this.positions = positions;
+        }
+
+        public Board Copy()
+        {
+            return new Board(positions.Clone() as Mark[]);
+        }
+
         public void AddMove(Move move)
         {
             positions[move.Position] = move.Mark;

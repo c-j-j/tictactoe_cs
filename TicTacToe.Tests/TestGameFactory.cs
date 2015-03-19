@@ -22,7 +22,6 @@ namespace TicTacToe
 
         public static Game DrawnGame()
         {
-
             var stubPlayer1 = new StubPlayer(Mark.X);
             var stubPlayer2 = new StubPlayer(Mark.O);
             var board = new Board();

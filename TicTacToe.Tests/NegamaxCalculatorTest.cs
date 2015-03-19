@@ -7,19 +7,22 @@ using NUnit.Framework;
 namespace TicTacToe.Tests
 {
     [TestFixture]
-    public class MinimaxCalculatorTestulatorTest
+    public class NegamaxCalculatorTestulatorTest
     {
 
         Predicate<int> alwaysTruePredicate = _ => true;
-        Func<int, int> echoIntFunction = _ => _;
+        Func<int, char, int> EchoIntFunction = (i, c) => i;
+
+        const char PLAYER = 'p';
+        const char OPPONENT = 'o';
 
         [Test]
         public void ScoreOfBestNodeIsCalculatedUsingPassedInFunction()
         {
-            const int score = 1;
-            Func<int, int> scoreCalculator = _ => score;
-            var trackingNode = new TrackingNode<int, string>(0, "someTracker");
-            var bestNode = new MinimaxCalculator<int, string>(alwaysTruePredicate, scoreCalculator, null).Negamax(trackingNode);
+            const int score = 10;
+            Func<int, char,  int> scoreCalculator = (i, c) => score;
+            var bestNode = new NegamaxCalculator<int, char, string>(alwaysTruePredicate, scoreCalculator, null, PLAYER, OPPONENT)
+                .Negamax(new TrackingNode<int, string>(0, "someTracker"));
             Assert.AreEqual(score, bestNode.Score);
         }
 
@@ -28,38 +31,54 @@ namespace TicTacToe.Tests
         {
             const int node = 0;
             const string tracker = "SomeTracker";
-            var trackingNode = new TrackingNode<int, string>(node, tracker);
-            var bestNode = new MinimaxCalculator<int, string>(alwaysTruePredicate, echoIntFunction, null)
-                .Negamax(trackingNode);
+            var bestNode = new NegamaxCalculator<int, char, string>(alwaysTruePredicate, EchoIntFunction, null, PLAYER, OPPONENT)
+                .Negamax(new TrackingNode<int, string>(node, tracker));
             Assert.AreEqual(tracker, bestNode.Value);
         }
 
-
+        /* 0("ParentNode") parent node
+         * \ 1("A") child node
+         * best node value = "A"
+         */
         [Test]
-        public void BestNodeWillBeTheSingleTerminalChildOfParentNode()
+        public void BestNodeValueWillBeTheSingleChildOfParentNode()
         {
-            const int parentNode = 0;
-            var parentNodeTracker = new TrackingNode<int, string>(parentNode, "0");
-            const int childNode = 1;
-            const string childNodeValue = "1";
-            var childNodeTracker = new TrackingNode<int, string>(childNode, childNodeValue);
-            var childExtractor = ParentToChildExtractorFunction(parentNode, BuildListOfChildren(childNodeTracker));
-            var bestNode = new MinimaxCalculator<int, string>(TerminateAtChildNode(parentNode), echoIntFunction, childExtractor)
-                .Negamax(parentNodeTracker);
+            const string childNodeValue = "A";
+            var bestNode = RunNegamaxWithChild(new TrackingNode<int, string>(1, childNodeValue));
             Assert.AreEqual(bestNode.Value, childNodeValue);
         }
 
+        /* 0("ParentNode") parent node
+         * \ 1("A") child node
+         * best node score = -1
+         */
+        [Test]
+        public void ScoreOfBestNodeWillBeNegatedScoreOfOnlyChildNode()
+        {
+            const int childNode = 1;
+            var bestNode = RunNegamaxWithChild(new TrackingNode<int, string>(childNode, "A"));
+            Assert.AreEqual(bestNode.Score, -childNode);
+        }
+
+        /* 0("ParentNode")    parent node
+         * \ 1("A"), 2("B")   children nodes
+         * best node value = "B"
+         */
         [Test]
         public void BestNodeWillBeTheChildWithHighestScore()
         {
-            const int parentNode = 0;
-            var parentNodeTracker = new TrackingNode<int, string>(parentNode, "0");
-            const int childNodeB = 2;
-            const string childNodeValueB = "2";
-            var childExtractor = ParentToChildExtractorFunction(parentNode, BuildListOfChildren(NewTrackingNode(1, "1"), NewTrackingNode(childNodeB, childNodeValueB)));
-            var bestNode = new MinimaxCalculator<int, string>(TerminateAtChildNode(parentNode), ScoreCalculatorBasedOnOpponentPerspective(), childExtractor)
-                .Negamax(parentNodeTracker);
+            const string childNodeValueB = "B";
+            var bestNode = RunNegamaxWithChildren(BuildListOfChildren(NewTrackingNode(1, "A"), NewTrackingNode(2, childNodeValueB)));
             Assert.AreEqual(childNodeValueB, bestNode.Value);
+        }
+
+        static NegamaxCalculator<int, char, string>.BestNode RunNegamaxWithChildren(IEnumerable<TrackingNode<int, string>> children)
+        {
+            const int parentNode = 0;
+            var childExtractor = ParentToChildExtractorFunction(parentNode, children);
+            var bestNode = new NegamaxCalculator<int, char, string>(TerminateAtChildNode(parentNode), ScoreCalculator(), childExtractor, PLAYER, OPPONENT)
+                .Negamax(new TrackingNode<int, string>(parentNode, "0"));
+            return bestNode;
         }
 
         static TrackingNode<int, string> NewTrackingNode(int node, string tracker)
@@ -67,9 +86,9 @@ namespace TicTacToe.Tests
             return new TrackingNode<int, string>(node, tracker);
         }
 
-        static Func<int, int> ScoreCalculatorBasedOnOpponentPerspective()
+        static Func<int, char, int> ScoreCalculator()
         {
-            return x => -x;
+            return (x, c) => c == OPPONENT ? -x : x;
         }
 
         static Predicate<int> TerminateAtChildNode(int parentNode)
@@ -77,14 +96,23 @@ namespace TicTacToe.Tests
             return x => x != parentNode;
         }
 
-        static Func<int, IEnumerable<TrackingNode<int, string>>> ParentToChildExtractorFunction(int parentNode, IEnumerable<TrackingNode<int, string>> children)
+        static Func<int, char, IEnumerable<TrackingNode<int, string>>> ParentToChildExtractorFunction(int parentNode, IEnumerable<TrackingNode<int, string>> children)
         {
-            return x => x == parentNode ? children : Enumerable.Empty<TrackingNode<int, string>>();
+            return (x, c) => x == parentNode ? children : Enumerable.Empty<TrackingNode<int, string>>();
         }
 
         static IList<TrackingNode<int, string>> BuildListOfChildren(params TrackingNode<int, string>[] children)
         {
             return children.ToList();
+        }
+
+        private NegamaxCalculator<int, char, string>.BestNode RunNegamaxWithChild(TrackingNode<int, string> childNodeTracker)
+        {
+            const int parentNode = 0;
+            var childExtractor = ParentToChildExtractorFunction(parentNode, BuildListOfChildren(childNodeTracker));
+            var parentNodeTracker = new TrackingNode<int, string>(parentNode, "ParentNodeValue");
+            var bestNode = new NegamaxCalculator<int, char, string>(TerminateAtChildNode(parentNode), EchoIntFunction, childExtractor, PLAYER, OPPONENT).Negamax(parentNodeTracker);
+            return bestNode;
         }
 
     }
