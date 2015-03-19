@@ -25,7 +25,7 @@ namespace TicTacToe.Tests
         [Test]
         public void ScoreIsNegativeWhenComputerHasLost()
         {
-            var game = TestGameFactory.WonGame(new StubPlayer(Mark.O));
+            var game = TestGameFactory.WonGame(Mark.O);
             var score = computerPlayer.CalculateScore(game, Mark.X);
             Assert.AreEqual(score, -10);
         }
@@ -33,7 +33,7 @@ namespace TicTacToe.Tests
         [Test]
         public void ScoreIsPositiveWhenComputerHasWon()
         {
-            var game = TestGameFactory.WonGame(new StubPlayer(Mark.X));
+            var game = TestGameFactory.WonGame(Mark.X);
             var score = computerPlayer.CalculateScore(game, Mark.X);
             Assert.AreEqual(score, 10);
         }
@@ -44,14 +44,14 @@ namespace TicTacToe.Tests
             var game = TestGameFactory.NewGame();
             var list = computerPlayer.generateChildExtractor(game, Mark.X).ToArray();
             Assert.AreEqual(list.Length, 9);
-            Assert.AreEqual(list[0].Value.GetAvailablePositions().Count(), 8);
         }
 
         [Test]
         public void CalculatesToGoTopCornerDuringNewGame()
         {
             var move = computerPlayer.GetMove(TestGameFactory.NewGame());
-            Assert.AreEqual(move.Position, 8);
+            var corners = new []{ 0, 2, 6, 8 };
+            Assert.That(corners, Contains.Item(move.Position));
         }
 
         [Test]
@@ -67,9 +67,5 @@ namespace TicTacToe.Tests
             //Assert.AreEqual(1, move.Position);
         }
 
-        [Test]
-        public void Bar()
-        {
-        }
     }
 }

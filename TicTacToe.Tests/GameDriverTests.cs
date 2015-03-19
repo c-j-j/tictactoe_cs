@@ -26,7 +26,7 @@ namespace TicTacToe.Tests
         [Test]
         public void PrintsWinningOutcome()
         {
-            var game = TestGameFactory.WonGame(new StubPlayer(Mark.X));
+            var game = TestGameFactory.WonGame(Mark.X);
             var gameDriver = new GameDriver(game, stubInterface);
             gameDriver.Run();
             Assert.IsTrue(stubInterface.PrintWinOutcomeCalled(Mark.X));

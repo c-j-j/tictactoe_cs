@@ -37,9 +37,10 @@ namespace TicTacToe
             return new Game(board, stubPlayer1, stubPlayer2);
         }
 
-        public static Game WonGame(StubPlayer wonPlayer)
+        public static Game WonGame(Mark winningMark)
         {
             var board = new Board();
+            var wonPlayer = new StubPlayer(winningMark);
             AddMoveToBoard(wonPlayer, 0, board);
             AddMoveToBoard(wonPlayer, 1, board);
             AddMoveToBoard(wonPlayer, 2, board);

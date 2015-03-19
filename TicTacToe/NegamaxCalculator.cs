@@ -9,8 +9,8 @@ namespace TicTacToe
         private readonly Func<TNode, TPlayer, int> scoreCalculator;
         private readonly Predicate<TNode> terminalNodePredicate;
         private readonly Func<TNode, TPlayer, IEnumerable<Node<TNode, TData>>> childNodeExtractor;
-        private TPlayer player;
-        private TPlayer opponent;
+        private readonly TPlayer player;
+        private readonly TPlayer opponent;
 
         public NegamaxCalculator(Predicate<TNode> terminalNodePredicate,
             Func<TNode, TPlayer, int> scoreCalculator,
@@ -29,7 +29,8 @@ namespace TicTacToe
             return Negamax(node, player);
         }
 
-        public BestNode Negamax(Node<TNode, TData> node, TPlayer currentPlayer)
+        public BestNode Negamax(Node<TNode, TData> node, TPlayer currentPlayer,
+                int alpha=-1000, int beta=1000)
         {
             if (NodeIsTerminal(node))
             {
@@ -40,12 +41,16 @@ namespace TicTacToe
             BestNode bestNode = null;
             foreach (var childNode in GetChildren(node, currentPlayer))
             {
-                var bestNodeOfChild = Negamax(childNode, SwapPlayer(currentPlayer));
+                var bestNodeOfChild = Negamax(childNode, SwapPlayer(currentPlayer), -alpha, -beta);
                 var score = -(bestNodeOfChild.Score);
                 if (score > bestScore)
                 {
                     bestScore = score;
                     bestNode = new BestNode(score, bestNodeOfChild.Value);
+                }
+
+                if (Math.Max(alpha, score) >= beta){
+                    break;
                 }
             }
 
