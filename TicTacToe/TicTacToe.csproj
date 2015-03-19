@@ -45,7 +45,7 @@
     <Compile Include="ConsoleUserInterface.cs" />
     <Compile Include="GameDriver.cs" />
     <Compile Include="Main.cs" />
-    <Compile Include="TrackingNode.cs" />
+    <Compile Include="Node.cs" />
     <Compile Include="NegamaxCalculator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

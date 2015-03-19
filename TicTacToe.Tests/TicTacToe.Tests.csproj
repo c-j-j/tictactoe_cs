@@ -48,7 +48,7 @@
     <Compile Include="TestGameFactory.cs" />
     <Compile Include="ConsoleUserInterfaceTests.cs" />
     <Compile Include="GameDriverTests.cs" />
-    <Compile Include="TrackingNodeTest.cs" />
+    <Compile Include="NodeTest.cs" />
     <Compile Include="NegamaxCalculatorTest.cs" />
   </ItemGroup>
   <ItemGroup>

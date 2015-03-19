@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using NUnit.Framework;
-using NUnit.Framework.Constraints;
 
 namespace TicTacToe.Tests
 {
@@ -45,14 +44,14 @@ namespace TicTacToe.Tests
             var game = TestGameFactory.NewGame();
             var list = computerPlayer.generateChildExtractor(game, Mark.X).ToArray();
             Assert.AreEqual(list.Length, 9);
-            Assert.AreEqual(list[0].Node.GetAvailablePositions().Count(), 8);
+            Assert.AreEqual(list[0].Value.GetAvailablePositions().Count(), 8);
         }
 
         [Test]
         public void CalculatesToGoTopCornerDuringNewGame()
         {
-            //var move = computerPlayer.GetMove(TestGameFactory.NewGame());
-            //Assert.AreEqual(move.Position, 6);
+            var move = computerPlayer.GetMove(TestGameFactory.NewGame());
+            Assert.AreEqual(move.Position, 8);
         }
 
         [Test]
