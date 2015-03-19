@@ -87,6 +87,14 @@ namespace TicTacToe.Tests
 			AssertNextMoveIs(6);
 		}
 
+        [Test]
+        public void ComputerVsComputerEndsInDraw()
+        {
+            var game = new Game(board, new ComputerPlayer(Mark.X, Mark.O), new ComputerPlayer(Mark.O, Mark.X));
+            new GameDriver(game, new StubInterface()).Run();
+            Assert.IsTrue(game.HasBeenDrawn());
+        }
+
         private void AssertNextMoveIs(int expectedMove)
         {
             var game = new Game(board, opponentPlayer, computerPlayer);
