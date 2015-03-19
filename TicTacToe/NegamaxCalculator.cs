@@ -41,15 +41,16 @@ namespace TicTacToe
             BestNode bestNode = null;
             foreach (var childNode in GetChildren(node, currentPlayer))
             {
-                var bestNodeOfChild = Negamax(childNode, SwapPlayer(currentPlayer), -alpha, -beta);
+                var bestNodeOfChild = Negamax(childNode, SwapPlayer(currentPlayer), -beta, -alpha);
                 var score = -(bestNodeOfChild.Score);
                 if (score > bestScore)
                 {
                     bestScore = score;
-                    bestNode = new BestNode(score, bestNodeOfChild.Value);
+					bestNode = new BestNode(score, childNode.Data);
                 }
 
-                if (Math.Max(alpha, score) >= beta){
+                alpha = Math.Max(alpha, score);
+                if (alpha >= beta){
                     break;
                 }
             }

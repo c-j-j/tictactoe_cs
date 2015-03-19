@@ -7,6 +7,10 @@ namespace TicTacToe
     {
         Mark opponentMark;
 
+        const int WON_SCORE = 10;
+        const int LOST_SCORE = -10;
+        const int DRAWN_SCORE = 0;
+
         public ComputerPlayer(Mark mark, Mark opponentMark)
         {
             Mark = mark;
@@ -17,22 +21,12 @@ namespace TicTacToe
 
         public Move GetMove(Game game)
         {
-            Predicate<Game> gameOverPredicate = g => g.IsGameOver();
-            Func<Game, Mark, int> gameScore = (g, m) => CalculateScore(g, m);
-            Func<Game, Mark, IEnumerable<Node<Game, int>>> childExtractor = delegate (Game g1, Mark m1)
-            {
-                return generateChildExtractor(g1, m1);
-            };
-
-            var negamax = new NegamaxCalculator<Game, Mark, int>(gameOverPredicate, gameScore, childExtractor, Mark, opponentMark);
-            var bestNode = negamax.Negamax(new Node<Game, int>(game, -1));
-            return new Move(Mark, bestNode.Value);
+            return new Move(Mark, FindBestPosition(game));
         }
 
-
-        public IEnumerable<Node<Game, int>> generateChildExtractor(Game game, Mark mark)
+        public IEnumerable<Node<Game, int>> GeneratePossibleGameStates(Game game, Mark mark)
         {
-            List<Node<Game, int>> trackedGames = new List<Node<Game, int>>();
+            var trackedGames = new List<Node<Game, int>>();
             foreach (var position in game.GetAvailablePositions())
             {
                 var newGame = game.CopyGameWithNewMove(new Move(mark, position));
@@ -41,32 +35,40 @@ namespace TicTacToe
             return trackedGames;
         }
 
-        public int CalculateScore(Game game, Mark mark)
+        public int CalculateGameScore(Game game, Mark mark)
         {
-            if (game.HasBeenDrawn())
-            {
-                return 0;
-            }
-            else if (game.HasBeenWon()){
-                if (game.WinningMark() == mark){
-                    return 10;
-                }else if(game.WinningMark() == OtherMark(mark)){
-                    return -10;
-                }else{
-                    throw new Exception("Game has been won but mark does not match");
-                }
-            }
-            else
+            if (!game.IsGameOver())
             {
                 throw new Exception("Calculating Score when it isn't game over");
             }
+
+            if (game.HasBeenDrawn())
+            {
+                return DRAWN_SCORE;
+            }
+            else
+            {
+                return MarkHasWon(game, mark) ? WON_SCORE : LOST_SCORE;
+            }
         }
 
-        private Mark OtherMark(Mark mark){
-            return mark.Equals(Mark.O) ? Mark.X : Mark.O;
+        private bool MarkHasWon(Game game, Mark mark)
+        {
+			return game.WinningMark().Equals(mark);
         }
 
+        private Predicate<Game> GameOverPredicate()
+        {
+            return g => g.IsGameOver();
+        }
 
+        private int FindBestPosition(Game game)
+        {
+            const int defaultPosition = -1;
+            var negamaxCalculator = new NegamaxCalculator<Game, Mark, int>(GameOverPredicate(),
+                              CalculateGameScore, GeneratePossibleGameStates, Mark, opponentMark);
+            return negamaxCalculator.Negamax(new Node<Game, int>(game, defaultPosition)).Value;
+        }
 
     }
 }

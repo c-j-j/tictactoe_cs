@@ -6,9 +6,9 @@ namespace TicTacToe
     {
         static void Main(string[] args)
         {
-            Board board = new Board();
+            var board = new Board();
             var userInterface = new ConsoleUserInterface();
-            Game game = new Game(board, new HumanPlayer(Mark.X, userInterface), new HumanPlayer(Mark.O, userInterface));
+            var game = new Game(board, new HumanPlayer(Mark.X, userInterface), new ComputerPlayer(Mark.O, Mark.X));
             new GameDriver(game, userInterface).Run();
         }
     }
