@@ -25,20 +25,18 @@ namespace TicTacToe
             return new Move(mark, nextMove);
         }
 
-        public Mark Mark
-        {
-            get
-            {
-                return mark;
-            }
-        }
+        public Mark Mark { get { return mark; } }
 
-        public int NextMove
+        public int NextMove { get { return nextMove; } }
+
+        public class Factory : PlayerFactory
         {
-            get
+
+            public Player Build(Mark playerMark, Mark opponentMark)
             {
-                return nextMove;
+                return new StubPlayer(playerMark);
             }
+
         }
     }
 }

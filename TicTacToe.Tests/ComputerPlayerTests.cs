@@ -95,6 +95,13 @@ namespace TicTacToe.Tests
             Assert.IsTrue(game.HasBeenDrawn());
         }
 
+        [Test]
+        public void FactoryBuildsComputerPlayer()
+        {
+            var player = new ComputerPlayer.Factory().Build(Mark.X, Mark.O);
+            Assert.AreEqual(player.Mark, Mark.X);
+        }
+
         private void AssertNextMoveIs(int expectedMove)
         {
             var game = new Game(board, opponentPlayer, computerPlayer);

@@ -46,15 +46,12 @@ namespace TicTacToe
             {
                 return DRAWN_SCORE;
             }
-            else
-            {
-                return MarkHasWon(game, mark) ? WON_SCORE : LOST_SCORE;
-            }
+            return MarkHasWon(game, mark) ? WON_SCORE : LOST_SCORE;
         }
 
         private bool MarkHasWon(Game game, Mark mark)
         {
-			return game.WinningMark().Equals(mark);
+            return game.WinningMark().Equals(mark);
         }
 
         private Predicate<Game> GameOverPredicate()
@@ -66,9 +63,16 @@ namespace TicTacToe
         {
             const int defaultPosition = -1;
             var negamaxCalculator = new NegamaxCalculator<Game, Mark, int>(GameOverPredicate(),
-                              CalculateGameScore, GeneratePossibleGameStates, Mark, opponentMark);
+                    CalculateGameScore, GeneratePossibleGameStates, Mark, opponentMark);
             return negamaxCalculator.Negamax(new Node<Game, int>(game, defaultPosition)).Value;
         }
 
+        public class Factory : PlayerFactory{
+
+            public Player Build(Mark playerMark, Mark opponentMark)
+            {
+                return new ComputerPlayer(playerMark, opponentMark);
+            }
+        }
     }
 }

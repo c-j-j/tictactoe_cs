@@ -28,7 +28,7 @@ namespace TicTacToe.Tests
         {
             Console.SetIn(new StringReader("1"));
             var position = userInterface.GetUserPosition();
-            Assert.AreEqual(1 - ConsoleUserInterface.CELL_OFFSET, position);
+            Assert.AreEqual(1 - ConsoleUserInterface.INPUT_OFFSET, position);
         }
 
         [Test]
@@ -36,7 +36,7 @@ namespace TicTacToe.Tests
         {
             Console.SetIn(new StringReader("a"));
             var position = userInterface.GetUserPosition();
-            Assert.AreEqual(0 - ConsoleUserInterface.CELL_OFFSET, position);
+            Assert.AreEqual(0 - ConsoleUserInterface.INPUT_OFFSET, position);
         }
 
         [Test]
@@ -76,6 +76,32 @@ namespace TicTacToe.Tests
             userInterface.PrintBoard(board);
             Assert.That(stringWriter.ToString(), Contains.Substring(String.Format(ConsoleUserInterface.CELL_FORMAT, Mark.X)));
             Assert.That(stringWriter.ToString(), Contains.Substring(String.Format(ConsoleUserInterface.CELL_FORMAT, Mark.O)));
+        }
+
+        [Test]
+        public void ReturnsOnlyPlayerTypeThatWasProvided()
+        {
+            Console.SetIn(new StringReader("1"));
+            Assert.AreEqual(userInterface.GetPlayerType(Mark.X, new []{"somePlayerType"}), "somePlayerType");
+        }
+
+        [Test]
+        public void DisplaysAllOptionsToUser()
+        {
+            var options = new []{"somePlayerType"};
+            Console.SetIn(new StringReader("1"));
+            userInterface.GetPlayerType(Mark.X, options);
+            Assert.That(stringWriter.ToString(),
+                    Is.StringContaining(String.Format(ConsoleUserInterface.SELECT_PLAYER_MESSAGE, Mark.X)));
+            Assert.That(stringWriter.ToString(), Is.StringContaining(options[0]));
+        }
+
+        [Test]
+        public void KeepsAskingForInputFromUserUntilValidInputGiven()
+        {
+            var options = new []{"somePlayerType"};
+            Console.SetIn(new StringReader("0\n2\n1"));
+            Assert.AreEqual("somePlayerType",userInterface.GetPlayerType(Mark.X, options));
         }
     }
 }

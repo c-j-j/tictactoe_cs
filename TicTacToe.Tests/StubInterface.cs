@@ -11,6 +11,7 @@ namespace TicTacToe.Tests
         private Mark winningMarkPrinted = Mark.EMPTY;
         private bool printBoardCalled = false;
         private bool printNextPlayerCalled = false;
+        string playerType;
 
         public void PrepareUserPositions(params int[] positions)
         {
@@ -72,5 +73,16 @@ namespace TicTacToe.Tests
         {
             return printNextPlayerCalled;
         }
+
+        public void PreparePlayerTypeToReturn(string playerType)
+        {
+            this.playerType = playerType;
+        }
+
+        public string GetPlayerType(Mark mark, string[] options)
+        {
+            return playerType;
+        }
+
     }
 }

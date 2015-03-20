@@ -50,6 +50,7 @@
     <Compile Include="GameDriverTests.cs" />
     <Compile Include="NodeTest.cs" />
     <Compile Include="NegamaxCalculatorTest.cs" />
+    <Compile Include="GameSetupTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

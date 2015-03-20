@@ -1,14 +1,18 @@
 using System;
+using System.Collections.Generic;
 
 namespace TicTacToe
 {
     public class MainClass
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            var board = new Board();
             var userInterface = new ConsoleUserInterface();
-            var game = new Game(board, new HumanPlayer(Mark.X, userInterface), new ComputerPlayer(Mark.O, Mark.X));
+            var playerOptions = new Dictionary<string, PlayerFactory>();
+            playerOptions.Add("Human Player", new HumanPlayer.Factory(userInterface));
+            playerOptions.Add("Computer Player", new ComputerPlayer.Factory());
+
+            var game = new GameSetup(userInterface, playerOptions).CreateGame();
             new GameDriver(game, userInterface).Run();
         }
     }

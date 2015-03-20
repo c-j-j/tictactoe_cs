@@ -8,6 +8,7 @@ namespace TicTacToe
         void PrintWinOutcome(Mark winningMark);
         void PrintBoard(Board board);
         void PrintNextPlayer(Mark nextPlayerMark);
+        string GetPlayerType(Mark mark, string[] options);
     }
 
 

@@ -33,5 +33,18 @@ namespace TicTacToe
             return new Move(Mark, userInterface.GetUserPosition());
         }
 
+        public class Factory : PlayerFactory
+        {
+            private readonly UserInterface userInterface;
+
+            public Factory(UserInterface userInterface){
+                this.userInterface = userInterface;
+            }
+
+            public Player Build(Mark playerMark, Mark opponentMark)
+            {
+                return new HumanPlayer(playerMark, userInterface);
+            }
+        }
     }
 }

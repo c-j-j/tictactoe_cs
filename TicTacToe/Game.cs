@@ -6,13 +6,13 @@ namespace TicTacToe
     public class Game
     {
         private readonly Board board;
-        private readonly Player player1;
-        private readonly Player player2;
+        public readonly Player Player1;
+        public readonly Player Player2;
 
         public Game(Board board, Player player1, Player player2)
         {
-            this.player1 = player1;
-            this.player2 = player2;
+            this.Player1 = player1;
+            this.Player2 = player2;
             this.board = board;
         }
 
@@ -64,14 +64,14 @@ namespace TicTacToe
         {
             Board boardCopy = board.Copy();
             boardCopy.AddMove(move);
-            return new Game(boardCopy, player1, player2);
+            return new Game(boardCopy, Player1, Player2);
         }
 
         public Board Board { get { return board; } }
 
         private Player GetCurrentPlayer()
         {
-            return PlayerOneGoingNext() ? player1 : player2;
+            return PlayerOneGoingNext() ? Player1 : Player2;
         }
 
         private bool IsPositionEmpty(Move move)

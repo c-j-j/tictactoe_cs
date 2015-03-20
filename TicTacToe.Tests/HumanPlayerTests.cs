@@ -33,5 +33,12 @@ namespace TicTacToe.Tests
             humanPlayer.GetMove(game);
             Assert.IsTrue(userInterface.PrintInvalidMoveMessageCalled());
         }
+
+        [Test]
+        public void FactoryBuildsPlayer()
+        {
+            Player player = new HumanPlayer.Factory(new StubInterface()).Build(Mark.X, Mark.O);
+            Assert.AreEqual(player.Mark, Mark.X);
+        }
     }
 }
