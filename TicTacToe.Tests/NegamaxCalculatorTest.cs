@@ -33,7 +33,7 @@ namespace TicTacToe.Tests
             const string childNodeValue = "SomeTracker";
             var bestNode = new NegamaxCalculator<int, char, string>(alwaysTruePredicate, EchoIntFunction, null, PLAYER, OPPONENT)
                 .Negamax(new Node<int, string>(node, childNodeValue));
-            Assert.AreEqual(childNodeValue, bestNode.Value);
+            Assert.AreEqual(childNodeValue, bestNode.Node.Datum);
         }
 
         /* 0("ParentNode") parent node
@@ -45,7 +45,7 @@ namespace TicTacToe.Tests
         {
             const string childNodeValue = "A";
             var bestNode = RunNegamaxWithChild(new Node<int, string>(1, childNodeValue));
-            Assert.AreEqual(bestNode.Value, childNodeValue);
+            Assert.AreEqual(bestNode.Node.Datum, childNodeValue);
         }
 
         /* 0("ParentNode") parent node
@@ -70,10 +70,10 @@ namespace TicTacToe.Tests
             const string childNodeValueB = "B";
             var bestNode = RunNegamaxWithChildren(BuildListOfChildren(NewTrackingNode(1, "A"),
                                    NewTrackingNode(2, childNodeValueB)));
-            Assert.AreEqual(childNodeValueB, bestNode.Value);
+            Assert.AreEqual(childNodeValueB, bestNode.Node.Datum);
         }
 
-        static NegamaxCalculator<int, char, string>.BestNode RunNegamaxWithChildren(IEnumerable<Node<int, string>> children)
+        static NegamaxCalculator<int, char, string>.ScoredNode RunNegamaxWithChildren(IEnumerable<Node<int, string>> children)
         {
             const int parentNode = 0;
             var childExtractor = ParentToChildExtractorFunction(parentNode, children);
@@ -109,7 +109,7 @@ namespace TicTacToe.Tests
             return children.ToList();
         }
 
-        private NegamaxCalculator<int, char, string>.BestNode RunNegamaxWithChild(Node<int, string> childNodeTracker)
+        private NegamaxCalculator<int, char, string>.ScoredNode RunNegamaxWithChild(Node<int, string> childNodeTracker)
         {
             const int parentNode = 0;
             var childExtractor = ParentToChildExtractorFunction(parentNode, BuildListOfChildren(childNodeTracker));

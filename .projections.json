@@ -1,0 +1,6 @@
+{
+    "TicTacToe.Tests/*Test.cs": {"alternate": "TicTacToe/{}.cs"},
+    "TicTacToe/*.cs": {"alternate": "TicTacToe.Tests/{}Test.cs"}
+}
+
+

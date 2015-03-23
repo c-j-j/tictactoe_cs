@@ -2,12 +2,12 @@ namespace TicTacToe
 {
     public class Node<N, V>
     {
-        public N Value { get; set; }
-        public V Data { get; set; }
+        public N State { get; set; }
+        public V Datum { get; set; }
 
-        public Node(N nodeValue, V data){
-            Value = nodeValue;
-            Data = data;
+        public Node(N state, V datum){
+            State = state;
+            Datum = datum;
         }
     }
 }

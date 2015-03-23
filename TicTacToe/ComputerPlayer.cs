@@ -6,7 +6,6 @@ namespace TicTacToe
     public class ComputerPlayer : Player
     {
         Mark opponentMark;
-
         const int WON_SCORE = 10;
         const int LOST_SCORE = -10;
         const int DRAWN_SCORE = 0;
@@ -22,6 +21,12 @@ namespace TicTacToe
         public Move GetMove(Game game)
         {
             return new Move(Mark, FindBestPosition(game));
+        }
+
+        private int FindBestPosition(Game game)
+        {
+            const int defaultPosition = -1;
+            return CreateNegaMaxCalculator().Negamax(new Node<Game, int>(game, defaultPosition)).Node.Datum;
         }
 
         public IEnumerable<Node<Game, int>> GeneratePossibleGameStates(Game game, Mark mark)
@@ -59,16 +64,14 @@ namespace TicTacToe
             return g => g.IsGameOver();
         }
 
-        private int FindBestPosition(Game game)
+        private NegamaxCalculator<Game, Mark, int> CreateNegaMaxCalculator()
         {
-            const int defaultPosition = -1;
-            var negamaxCalculator = new NegamaxCalculator<Game, Mark, int>(GameOverPredicate(),
+            return new NegamaxCalculator<Game, Mark, int>(GameOverPredicate(), 
                     CalculateGameScore, GeneratePossibleGameStates, Mark, opponentMark);
-            return negamaxCalculator.Negamax(new Node<Game, int>(game, defaultPosition)).Value;
         }
 
-        public class Factory : PlayerFactory{
-
+        public class Factory : PlayerFactory
+        {
             public Player Build(Mark playerMark, Mark opponentMark)
             {
                 return new ComputerPlayer(playerMark, opponentMark);

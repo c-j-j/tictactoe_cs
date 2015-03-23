@@ -4,17 +4,17 @@ using System.Linq;
 
 namespace TicTacToe
 {
-    public class NegamaxCalculator<TNode, TPlayer, TData>
+    public class NegamaxCalculator<TState, TPlayer, TDatum>
     {
-        private readonly Func<TNode, TPlayer, int> scoreCalculator;
-        private readonly Predicate<TNode> terminalNodePredicate;
-        private readonly Func<TNode, TPlayer, IEnumerable<Node<TNode, TData>>> childNodeExtractor;
+        private readonly Func<TState, TPlayer, int> scoreCalculator;
+        private readonly Predicate<TState> terminalNodePredicate;
+        private readonly Func<TState, TPlayer, IEnumerable<Node<TState, TDatum>>> childNodeExtractor;
         private readonly TPlayer player;
         private readonly TPlayer opponent;
 
-        public NegamaxCalculator(Predicate<TNode> terminalNodePredicate,
-            Func<TNode, TPlayer, int> scoreCalculator,
-            Func<TNode, TPlayer, IEnumerable<Node<TNode, TData>>> childNodeExtractor,
+        public NegamaxCalculator(Predicate<TState> terminalNodePredicate,
+            Func<TState, TPlayer, int> scoreCalculator,
+            Func<TState, TPlayer, IEnumerable<Node<TState, TDatum>>> childNodeExtractor,
             TPlayer player, TPlayer opponent)
         {
             this.childNodeExtractor = childNodeExtractor;
@@ -24,33 +24,31 @@ namespace TicTacToe
             this.opponent = opponent;
         }
 
-        public BestNode Negamax(Node<TNode, TData> node)
+        public ScoredNode Negamax(Node<TState, TDatum> node)
         {
             return Negamax(node, player);
         }
 
-        public BestNode Negamax(Node<TNode, TData> node, TPlayer currentPlayer,
-                int alpha=-1000, int beta=1000)
+        public ScoredNode Negamax(Node<TState, TDatum> node, TPlayer currentPlayer,
+            int alpha = -1000, int beta = 1000)
         {
             if (NodeIsTerminal(node))
             {
-                return new BestNode(ScoreOfNode(node, currentPlayer), node.Data);
+                return new ScoredNode(ScoreOfNode(node, currentPlayer), node);
             }
 
-            var bestScore = -1000;
-            BestNode bestNode = null;
+            var bestNode = new ScoredNode(-1000, null);
             foreach (var childNode in GetChildren(node, currentPlayer))
             {
-                var bestNodeOfChild = Negamax(childNode, SwapPlayer(currentPlayer), -beta, -alpha);
-                var score = -(bestNodeOfChild.Score);
-                if (score > bestScore)
+                var score = -Negamax(childNode, SwapPlayer(currentPlayer), -beta, -alpha).Score;
+                if (score > bestNode.Score)
                 {
-                    bestScore = score;
-					bestNode = new BestNode(score, childNode.Data);
+                    bestNode = new ScoredNode(score, childNode);
                 }
 
                 alpha = Math.Max(alpha, score);
-                if (alpha >= beta){
+                if (alpha >= beta)
+                {
                     break;
                 }
             }
@@ -58,19 +56,19 @@ namespace TicTacToe
             return bestNode;
         }
 
-        private IEnumerable<Node<TNode,TData>> GetChildren(Node<TNode, TData> node, TPlayer currentPlayer)
+        private IEnumerable<Node<TState,TDatum>> GetChildren(Node<TState, TDatum> node, TPlayer currentPlayer)
         {
-            return childNodeExtractor.Invoke(node.Value, currentPlayer);
+            return childNodeExtractor.Invoke(node.State, currentPlayer);
         }
 
-        private int ScoreOfNode(Node<TNode, TData> node, TPlayer currentPlayer)
+        private int ScoreOfNode(Node<TState, TDatum> node, TPlayer currentPlayer)
         {
-            return scoreCalculator.Invoke(node.Value, currentPlayer);
+            return scoreCalculator.Invoke(node.State, currentPlayer);
         }
 
-        private bool NodeIsTerminal(Node<TNode, TData> node)
+        private bool NodeIsTerminal(Node<TState, TDatum> node)
         {
-            return terminalNodePredicate.Invoke(node.Value);
+            return terminalNodePredicate.Invoke(node.State);
         }
 
         private TPlayer SwapPlayer(TPlayer currentPlayer)
@@ -78,15 +76,21 @@ namespace TicTacToe
             return currentPlayer.Equals(opponent) ? player : opponent;
         }
 
-        public class BestNode
+        public class ScoredNode
         {
-            public BestNode(int score, TData value)
+            public ScoredNode(int score, Node<TState, TDatum>  node)
             {
                 Score = score;
-                Value = value;
+                Node = node;
             }
+
+            public ScoredNode Negate()
+            {
+                return new ScoredNode(-Score, Node);
+            }
+
             public int Score{ get; set; }
-            public TData Value { get; set; }
+            public Node<TState, TDatum> Node { get; set; }
         }
 
     }
