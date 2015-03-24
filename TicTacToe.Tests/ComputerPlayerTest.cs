@@ -91,7 +91,7 @@ namespace TicTacToe.Tests
         public void ComputerVsComputerEndsInDraw()
         {
             var game = new Game(board, new ComputerPlayer(Mark.X, Mark.O), new ComputerPlayer(Mark.O, Mark.X));
-            new GameDriver(game, new StubInterface()).Run();
+            new GameRunner(game, new StubInterface()).Run();
             Assert.IsTrue(game.HasBeenDrawn());
         }
 
@@ -107,6 +107,7 @@ namespace TicTacToe.Tests
             var game = new Game(board, opponentPlayer, computerPlayer);
             var move = computerPlayer.GetMove(game);
             Assert.AreEqual(expectedMove, move.Position);
+
         }
 
         void AddMoveToBoard(Board b, Player player, int position)

@@ -43,7 +43,7 @@
     <Compile Include="UserInterface.cs" />
     <Compile Include="HumanPlayer.cs" />
     <Compile Include="ConsoleUserInterface.cs" />
-    <Compile Include="GameDriver.cs" />
+    <Compile Include="GameRunner.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Node.cs" />
     <Compile Include="NegamaxCalculator.cs" />

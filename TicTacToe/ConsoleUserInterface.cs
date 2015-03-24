@@ -71,11 +71,8 @@ namespace TicTacToe
 
             foreach (Board.Line row in board.GetRows())
             {
-                foreach (Mark mark in row.Marks)
-                {
-                    boardStringBuilder.Append(FormatCell(mark, counter));
-                    counter++;
-                }
+                var formattedMarks = row.Marks.Select(mark => CellRepresentation(mark, counter++));
+                boardStringBuilder.Append(string.Join(" | ", formattedMarks.ToArray()));
                 boardStringBuilder.AppendLine();
             }
 
@@ -87,13 +84,10 @@ namespace TicTacToe
             WriteToConsole(String.Format(NEXT_PLAYER_MESSAGE, nextPlayerMark));
         }
 
-        private void WriteOptionsToConsole(IEnumerable options)
+        private void WriteOptionsToConsole(IEnumerable<string> options)
         {
             var index = 1;
-            foreach (var option in options)
-            {
-                WriteToConsole(String.Format("{0}: {1}", index++, option));
-            }
+            options.ToList().ForEach(o => WriteToConsole(String.Format("{0}: {1}", index++, o)));
         }
 
         private string ReadLineFromUser()
@@ -101,10 +95,9 @@ namespace TicTacToe
             return Console.ReadLine();
         }
 
-        private string FormatCell(Mark mark, int counter)
+        private string CellRepresentation(Mark mark, int counter)
         {
-            var cell = mark != Mark.EMPTY ? mark.ToString() : counter.ToString();
-            return String.Format(CELL_FORMAT, cell);
+            return mark != Mark.EMPTY ? mark.ToString() : counter.ToString();
         }
 
         private void WriteToConsole(string message)

@@ -74,8 +74,9 @@ namespace TicTacToe.Tests
             board.AddMove(new Move(Mark.X, 0));
             board.AddMove(new Move(Mark.O, 4));
             userInterface.PrintBoard(board);
-            Assert.That(stringWriter.ToString(), Contains.Substring(String.Format(ConsoleUserInterface.CELL_FORMAT, Mark.X)));
-            Assert.That(stringWriter.ToString(), Contains.Substring(String.Format(ConsoleUserInterface.CELL_FORMAT, Mark.O)));
+            Assert.That(stringWriter.ToString(), Contains.Substring( "X | 2 | 3"));
+            Assert.That(stringWriter.ToString(), Contains.Substring( "4 | O | 6"));
+            Assert.That(stringWriter.ToString(), Contains.Substring( "7 | 8 | 9"));
         }
 
         [Test]

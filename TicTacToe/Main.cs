@@ -12,7 +12,7 @@ namespace TicTacToe
             playerOptions.Add("Human Player", new HumanPlayer.Factory(userInterface));
             playerOptions.Add("Computer Player", new ComputerPlayer.Factory());
             var game = new GameSetup(userInterface, playerOptions).CreateGame();
-            new GameDriver(game, userInterface).Run();
+            new GameRunner(game, userInterface).Run();
         }
     }
 }

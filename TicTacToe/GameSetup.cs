@@ -16,13 +16,17 @@ namespace TicTacToe
 
         public Game CreateGame()
         {
-            return new Game(new Board(), CreatePlayer(Mark.X, Mark. O), CreatePlayer(Mark.O, Mark.X));
+            return new Game(new Board(), CreatePlayer(Mark.X, Mark.O), CreatePlayer(Mark.O, Mark.X));
         }
 
         public Player CreatePlayer(Mark player, Mark opponent)
         {
-           return playerOptions[userInterface.GetPlayerType(player, playerOptions.Keys.ToArray())]
-               .Build(player, opponent);
+            return playerOptions[GetPlayerType(player)].Build(player, opponent);
+        }
+
+        private string GetPlayerType(Mark player)
+        {
+            return userInterface.GetPlayerType(player, playerOptions.Keys.ToArray());
         }
     }
 }

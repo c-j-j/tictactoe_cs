@@ -47,10 +47,10 @@
     <Compile Include="StubInterface.cs" />
     <Compile Include="TestGameFactory.cs" />
     <Compile Include="ConsoleUserInterfaceTest.cs" />
-    <Compile Include="GameDriverTest.cs" />
     <Compile Include="NodeTest.cs" />
     <Compile Include="NegamaxCalculatorTest.cs" />
     <Compile Include="GameSetupTest.cs" />
+    <Compile Include="GameRunnerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
