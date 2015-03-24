@@ -23,9 +23,9 @@ namespace TicTacToe
             return userPosition - INPUT_OFFSET;
         }
 
-        public string GetPlayerType(Mark mark, string[] options)
+        public string GetPlayerType(Mark mark, string[] playerOptions)
         {
-            return options[GetPlayerTypeFromUser(mark, options) - INPUT_OFFSET];
+            return playerOptions[GetPlayerTypeFromUser(mark, playerOptions) - INPUT_OFFSET];
         }
 
         private int GetPlayerTypeFromUser(Mark mark, string[] options)

@@ -6,6 +6,7 @@ namespace TicTacToe
 {
     public class NegamaxCalculator<TState, TPlayer, TDatum>
     {
+        //using ScoredNode = Tuple<int, TScore, TDatum>;
         private readonly Func<TState, TPlayer, int> scoreCalculator;
         private readonly Predicate<TState> terminalNodePredicate;
         private readonly Func<TState, TPlayer, IEnumerable<Node<TState, TDatum>>> childNodeExtractor;
@@ -29,6 +30,10 @@ namespace TicTacToe
             return Negamax(node, player);
         }
 
+        //Potential changes
+        //Score is calculated by working out who the current player is, not rely on it being parsed in
+        //TDatum maybe not necessary, can calculate the best move from the best possible next game state
+        //Using tuple instead of ScoredNode
         public ScoredNode Negamax(Node<TState, TDatum> node, TPlayer currentPlayer,
             int alpha = -1000, int beta = 1000)
         {
@@ -46,8 +51,7 @@ namespace TicTacToe
                     bestNode = new ScoredNode(score, childNode);
                 }
 
-                alpha = Math.Max(alpha, score);
-                if (alpha >= beta)
+                if ((alpha = Math.Max(alpha, score)) >= beta)
                 {
                     break;
                 }
@@ -58,17 +62,17 @@ namespace TicTacToe
 
         private IEnumerable<Node<TState,TDatum>> GetChildren(Node<TState, TDatum> node, TPlayer currentPlayer)
         {
-            return childNodeExtractor.Invoke(node.State, currentPlayer);
+            return childNodeExtractor(node.State, currentPlayer);
         }
 
         private int ScoreOfNode(Node<TState, TDatum> node, TPlayer currentPlayer)
         {
-            return scoreCalculator.Invoke(node.State, currentPlayer);
+            return scoreCalculator(node.State, currentPlayer);
         }
 
         private bool NodeIsTerminal(Node<TState, TDatum> node)
         {
-            return terminalNodePredicate.Invoke(node.State);
+            return terminalNodePredicate(node.State);
         }
 
         private TPlayer SwapPlayer(TPlayer currentPlayer)
@@ -82,11 +86,6 @@ namespace TicTacToe
             {
                 Score = score;
                 Node = node;
-            }
-
-            public ScoredNode Negate()
-            {
-                return new ScoredNode(-Score, Node);
             }
 
             public int Score{ get; set; }

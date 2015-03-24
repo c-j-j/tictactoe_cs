@@ -11,26 +11,33 @@ namespace TicTacToe.Tests
     {
 
         Predicate<int> alwaysTruePredicate = _ => true;
-        Func<int, char, int> EchoIntFunction = (i, c) => i;
+        readonly Func<int, char, int> EchoIntFunction = (i, c) => i;
 
         const char PLAYER = 'p';
         const char OPPONENT = 'o';
 
+        /*
+         * 0("NodeDatum") - no children
+         * Score of node is equal to node state, in this case that is 0
+         */
         [Test]
         public void ScoreOfBestNodeIsCalculatedUsingPassedInFunction()
         {
             const int score = 10;
             Func<int, char,  int> scoreCalculator = (i, c) => score;
             var bestNode = new NegamaxCalculator<int, char, string>(alwaysTruePredicate, scoreCalculator, null, PLAYER, OPPONENT)
-                .Negamax(new Node<int, string>(0, "someParentValue"));
+                .Negamax(new Node<int, string>(0, "NodeDatum"));
             Assert.AreEqual(score, bestNode.Score);
         }
 
+        /*
+         * 0("NodeDatum") - no children
+         */
         [Test]
         public void ValueOfBestNodeIsValueOfTerminalNode()
         {
             const int node = 0;
-            const string childNodeValue = "SomeTracker";
+            const string childNodeValue = "NodeDatum";
             var bestNode = new NegamaxCalculator<int, char, string>(alwaysTruePredicate, EchoIntFunction, null, PLAYER, OPPONENT)
                 .Negamax(new Node<int, string>(node, childNodeValue));
             Assert.AreEqual(childNodeValue, bestNode.Node.Datum);
@@ -38,7 +45,7 @@ namespace TicTacToe.Tests
 
         /* 0("ParentNode") parent node
          * \ 1("A") child node
-         * best node value = "A"
+         * best node = 1
          */
         [Test]
         public void BestNodeValueWillBeTheSingleChildOfParentNode()
@@ -50,7 +57,7 @@ namespace TicTacToe.Tests
 
         /* 0("ParentNode") parent node
          * \ 1("A") child node
-         * best node score = -1
+         * score of best child node = -1
          */
         [Test]
         public void ScoreOfBestNodeWillBeNegatedScoreOfOnlyChildNode()
@@ -62,7 +69,7 @@ namespace TicTacToe.Tests
 
         /* 0("ParentNode")    parent node
          * \ 1("A"), 2("B")   children nodes
-         * best node value = "B"
+         * child node with highest score = 2
          */
         [Test]
         public void BestNodeWillBeTheChildWithHighestScore()
