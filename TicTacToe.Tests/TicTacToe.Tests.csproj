@@ -39,15 +39,15 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BoardTests.cs" />
-    <Compile Include="GameTests.cs" />
+    <Compile Include="BoardTest.cs" />
+    <Compile Include="GameTest.cs" />
     <Compile Include="StubPlayer.cs" />
-    <Compile Include="ComputerPlayerTests.cs" />
-    <Compile Include="HumanPlayerTests.cs" />
+    <Compile Include="ComputerPlayerTest.cs" />
+    <Compile Include="HumanPlayerTest.cs" />
     <Compile Include="StubInterface.cs" />
     <Compile Include="TestGameFactory.cs" />
-    <Compile Include="ConsoleUserInterfaceTests.cs" />
-    <Compile Include="GameDriverTests.cs" />
+    <Compile Include="ConsoleUserInterfaceTest.cs" />
+    <Compile Include="GameDriverTest.cs" />
     <Compile Include="NodeTest.cs" />
     <Compile Include="NegamaxCalculatorTest.cs" />
     <Compile Include="GameSetupTest.cs" />
