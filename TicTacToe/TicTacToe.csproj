@@ -4,7 +4,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{27F727D7-A7A8-41E0-9AE6-76CE97745051}</ProjectGuid>
-    <OutputType>exe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TicTacToe</RootNamespace>
     <AssemblyName>TicTacToe</AssemblyName>
@@ -49,6 +49,8 @@
     <Compile Include="NegamaxCalculator.cs" />
     <Compile Include="GameSetup.cs" />
     <Compile Include="PlayerFactory.cs" />
+    <Compile Include="UserInput.cs" />
+    <Compile Include="ConsoleUserInput.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

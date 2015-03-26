@@ -5,9 +5,9 @@ namespace TicTacToe
     public class GameRunner
     {
         private readonly Game game;
-        private readonly UserInterface userInterface;
+        private readonly Display userInterface;
 
-        public GameRunner(Game game, UserInterface userInterface)
+        public GameRunner(Game game, Display userInterface)
         {
             this.userInterface = userInterface;
             this.game = game;

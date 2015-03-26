@@ -5,10 +5,10 @@ namespace TicTacToe
 {
     public class GameSetup
     {
-        private readonly UserInterface userInterface;
+        private readonly Display userInterface;
         private readonly Dictionary<string, PlayerFactory> playerOptions;
 
-        public GameSetup(UserInterface userInterface, Dictionary<string, PlayerFactory> playerOptions)
+        public GameSetup(Display userInterface, Dictionary<string, PlayerFactory> playerOptions)
         {
             this.playerOptions = playerOptions;
             this.userInterface = userInterface;

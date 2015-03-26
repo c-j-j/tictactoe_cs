@@ -5,15 +5,15 @@ using NUnit.Framework;
 namespace TicTacToe.Tests
 {
     [TestFixture]
-    public class ConsoleUserInterfaceTests
+    public class ConsoleDisplayTests
     {
-        ConsoleUserInterface userInterface;
+        ConsoleDisplay display;
         StringWriter stringWriter;
 
         [SetUp]
         public void Setup()
         {
-            userInterface = new ConsoleUserInterface();
+            display = new ConsoleDisplay();
             stringWriter = new StringWriter();
             Console.SetOut(stringWriter);
         }
@@ -27,44 +27,44 @@ namespace TicTacToe.Tests
         public void GetsUserPositionFromConsoleAndConvertsToZeroBasedIndex()
         {
             Console.SetIn(new StringReader("1"));
-            var position = userInterface.GetUserPosition();
-            Assert.AreEqual(1 - ConsoleUserInterface.INPUT_OFFSET, position);
+            var position = display.GetUserPosition();
+            Assert.AreEqual(1 - ConsoleDisplay.INPUT_OFFSET, position);
         }
 
         [Test]
         public void ConvertsNonIntegerInputToMinusInteger()
         {
             Console.SetIn(new StringReader("a"));
-            var position = userInterface.GetUserPosition();
-            Assert.AreEqual(0 - ConsoleUserInterface.INPUT_OFFSET, position);
+            var position = display.GetUserPosition();
+            Assert.AreEqual(0 - ConsoleDisplay.INPUT_OFFSET, position);
         }
 
         [Test]
         public void PrintsErrorMessage()
         {
-            userInterface.PrintInvalidMoveError();
-            Assert.That(stringWriter.ToString(), Is.StringContaining(ConsoleUserInterface.INVALID_MOVE_ERROR));
+            display.PrintInvalidMoveError();
+            Assert.That(stringWriter.ToString(), Is.StringContaining(ConsoleDisplay.INVALID_MOVE_ERROR));
         }
 
         [Test]
         public void PrintsDrawnOutcome()
         {
-            userInterface.PrintDrawnOutcome();
-            Assert.That(stringWriter.ToString(), Is.StringContaining(ConsoleUserInterface.DRAWN_MESSAGE));
+            display.PrintDrawnOutcome();
+            Assert.That(stringWriter.ToString(), Is.StringContaining(ConsoleDisplay.DRAWN_MESSAGE));
         }
 
         [Test]
         public void PrintsWinOutcome()
         {
-            userInterface.PrintWinOutcome(Mark.X);
-            Assert.That(stringWriter.ToString(), Is.StringContaining(String.Format(ConsoleUserInterface.WINNER_MESSAGE, Mark.X)));
+            display.PrintWinOutcome(Mark.X);
+            Assert.That(stringWriter.ToString(), Is.StringContaining(String.Format(ConsoleDisplay.WINNER_MESSAGE, Mark.X)));
         }
 
         [Test]
         public void PrintsNextPlayer()
         {
-            userInterface.PrintNextPlayer(Mark.X);
-            Assert.That(stringWriter.ToString(), Is.StringContaining(String.Format(ConsoleUserInterface.NEXT_PLAYER_MESSAGE, Mark.X)));
+            display.PrintNextPlayer(Mark.X);
+            Assert.That(stringWriter.ToString(), Is.StringContaining(String.Format(ConsoleDisplay.NEXT_PLAYER_MESSAGE, Mark.X)));
         }
 
         [Test]
@@ -73,7 +73,7 @@ namespace TicTacToe.Tests
             var board = new Board();
             board.AddMove(new Move(Mark.X, 0));
             board.AddMove(new Move(Mark.O, 4));
-            userInterface.PrintBoard(board);
+            display.PrintBoard(board);
             Assert.That(stringWriter.ToString(), Contains.Substring( "X | 2 | 3"));
             Assert.That(stringWriter.ToString(), Contains.Substring( "4 | O | 6"));
             Assert.That(stringWriter.ToString(), Contains.Substring( "7 | 8 | 9"));
@@ -83,7 +83,7 @@ namespace TicTacToe.Tests
         public void ReturnsOnlyPlayerTypeThatWasProvided()
         {
             Console.SetIn(new StringReader("1"));
-            Assert.AreEqual(userInterface.GetPlayerType(Mark.X, new []{"somePlayerType"}), "somePlayerType");
+            Assert.AreEqual(display.GetPlayerType(Mark.X, new []{"somePlayerType"}), "somePlayerType");
         }
 
         [Test]
@@ -91,9 +91,9 @@ namespace TicTacToe.Tests
         {
             var options = new []{"somePlayerType"};
             Console.SetIn(new StringReader("1"));
-            userInterface.GetPlayerType(Mark.X, options);
+            display.GetPlayerType(Mark.X, options);
             Assert.That(stringWriter.ToString(),
-                    Is.StringContaining(String.Format(ConsoleUserInterface.SELECT_PLAYER_MESSAGE, Mark.X)));
+                    Is.StringContaining(String.Format(ConsoleDisplay.SELECT_PLAYER_MESSAGE, Mark.X)));
             Assert.That(stringWriter.ToString(), Is.StringContaining(options[0]));
         }
 
@@ -102,7 +102,7 @@ namespace TicTacToe.Tests
         {
             var options = new []{"somePlayerType"};
             Console.SetIn(new StringReader("0\n2\n1"));
-            Assert.AreEqual("somePlayerType",userInterface.GetPlayerType(Mark.X, options));
+            Assert.AreEqual("somePlayerType",display.GetPlayerType(Mark.X, options));
         }
     }
 }

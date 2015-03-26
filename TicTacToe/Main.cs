@@ -7,7 +7,7 @@ namespace TicTacToe
     {
         static void Main()
         {
-            var userInterface = new ConsoleUserInterface();
+            var userInterface = new ConsoleDisplay();
             //This can be improved, violates OCP still as new factories need to be added
             var playerOptions = new Dictionary<string, PlayerFactory>();
             playerOptions.Add("Human Player", new HumanPlayer.Factory(userInterface));

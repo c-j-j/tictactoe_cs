@@ -51,6 +51,7 @@
     <Compile Include="NegamaxCalculatorTest.cs" />
     <Compile Include="GameSetupTest.cs" />
     <Compile Include="GameRunnerTest.cs" />
+    <Compile Include="ConsoleUserInputTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

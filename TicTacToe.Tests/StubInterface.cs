@@ -2,7 +2,7 @@
 
 namespace TicTacToe.Tests
 {
-    public class StubInterface : UserInterface
+    public class StubInterface : Display
     {
         private Queue positions;
         private bool printErrorMessageCalled = false;
@@ -18,17 +18,22 @@ namespace TicTacToe.Tests
             this.positions = new Queue(positions);
         }
 
-        public int GetUserPosition()
+        public override void PrintMessage(string messsage)
+        {
+
+        }
+
+        public override int GetUserPosition()
         {
             return (int)positions.Dequeue();
         }
 
-        public void PrintInvalidMoveError()
+        public override void PrintInvalidMoveError()
         {
             printErrorMessageCalled = true;
         }
 
-        public void PrintDrawnOutcome()
+        public override void PrintDrawnOutcome()
         {
             printDrawnOutcomeCalled = true;
         }
@@ -43,7 +48,7 @@ namespace TicTacToe.Tests
             return printErrorMessageCalled;
         }
 
-        public void PrintWinOutcome(Mark winningMark)
+        public override void PrintWinOutcome(Mark winningMark)
         {
             winningMarkPrinted = winningMark;
             printWinOutcomeCalled = true;
@@ -54,7 +59,7 @@ namespace TicTacToe.Tests
             return printWinOutcomeCalled && (mark == winningMarkPrinted);
         }
 
-        public void PrintBoard(Board board)
+        public override void PrintBoard(Board board)
         {
             printBoardCalled = true;
         }
@@ -64,7 +69,7 @@ namespace TicTacToe.Tests
             return printBoardCalled;
         }
 
-        public void PrintNextPlayer(Mark nextPlayerMark)
+        public override void PrintNextPlayer(Mark nextPlayerMark)
         {
             printNextPlayerCalled = true;
         }
@@ -79,7 +84,7 @@ namespace TicTacToe.Tests
             this.playerType = playerType;
         }
 
-        public string GetPlayerType(Mark mark, string[] options)
+        public override string GetPlayerType(Mark mark, string[] options)
         {
             return playerType;
         }

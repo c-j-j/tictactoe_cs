@@ -2,11 +2,11 @@ namespace TicTacToe
 {
     public class HumanPlayer : Player
     {
-        private readonly UserInterface userInterface;
+        private readonly Display display;
 
-        public HumanPlayer(Mark mark, UserInterface userInterface)
+        public HumanPlayer(Mark mark, Display display)
         {
-            this.userInterface = userInterface;
+            this.display = display;
             Mark = mark;
         }
 
@@ -15,7 +15,7 @@ namespace TicTacToe
         public Move GetMove(Game game)
         {
             Move move;
-            while (!game.IsMoveValid(move = GetMoveFromUser()))
+            while (!game.IsMoveValid(move = GetMove()))
             {
                 PrintInvalidMoveError();
             }
@@ -25,25 +25,30 @@ namespace TicTacToe
 
         private void PrintInvalidMoveError()
         {
-            userInterface.PrintInvalidMoveError();
+            display.PrintInvalidMoveError();
         }
 
-        private Move GetMoveFromUser()
+        private Move GetMove()
         {
-            return new Move(Mark, userInterface.GetUserPosition());
+            return new Move(Mark, GetPositionFromUser());
+        }
+
+        int GetPositionFromUser()
+        {
+            return display.GetUserPosition();
         }
 
         public class Factory : PlayerFactory
         {
-            private readonly UserInterface userInterface;
+            private readonly Display display;
 
-            public Factory(UserInterface userInterface){
-                this.userInterface = userInterface;
+            public Factory(Display display){
+                this.display = display;
             }
 
             public Player Build(Mark playerMark, Mark opponentMark)
             {
-                return new HumanPlayer(playerMark, userInterface);
+                return new HumanPlayer(playerMark, display);
             }
         }
     }
