@@ -9,43 +9,8 @@ namespace TicTacToe
     public class ConsoleDisplay : Display
     {
         public const string CELL_FORMAT = " {0} |";
-        public const string SELECT_PLAYER_MESSAGE = "Select player for {0}";
-        //todo to be deleted
+        //TODO do not like the subtle duplication between here and userInput
         public const int INPUT_OFFSET = 1;
-
-        //todo delete
-        public override int GetUserPosition()
-        {
-            int userPosition;
-            int.TryParse(ReadLineFromUser(), out userPosition);
-            return userPosition - INPUT_OFFSET;
-        }
-
-        public override string GetPlayerType(Mark mark, string[] playerOptions)
-        {
-            return playerOptions[GetPlayerTypeFromUser(mark, playerOptions) - INPUT_OFFSET];
-        }
-
-        private int GetPlayerTypeFromUser(Mark mark, string[] options)
-        {
-            int selectedOption = -1;
-            while (true)
-            {
-                WriteToConsole(String.Format(SELECT_PLAYER_MESSAGE, mark));
-                WriteOptionsToConsole(options);
-                int.TryParse(ReadLineFromUser(), out selectedOption);
-                if (IsOptionWithinRange(options, selectedOption))
-                {
-                    break;
-                }
-            }
-            return selectedOption;
-       }
-
-        private bool IsOptionWithinRange(IEnumerable<string> options, int selectedOption)
-        {
-            return (options.Count() >= selectedOption) && (selectedOption > 0);
-        }
 
         public override void PrintMessage(string message)
         {
@@ -71,12 +36,6 @@ namespace TicTacToe
         {
             var index = 1;
             options.ToList().ForEach(o => WriteToConsole(String.Format("{0}: {1}", index++, o)));
-        }
-
-        //TODO to be deleted
-        private string ReadLineFromUser()
-        {
-            return Console.ReadLine();
         }
 
         private string CellRepresentation(Mark mark, int counter)

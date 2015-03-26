@@ -6,12 +6,12 @@ namespace TicTacToe.Tests
     public class GameRunnerTests
     {
 
-        StubInterface stubInterface;
+        StubDisplay stubInterface;
 
         [SetUp]
         public void Setup()
         {
-            stubInterface = new StubInterface();
+            stubInterface = new StubDisplay();
         }
 
         [Test]

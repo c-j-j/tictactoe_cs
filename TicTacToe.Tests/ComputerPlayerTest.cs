@@ -91,7 +91,7 @@ namespace TicTacToe.Tests
         public void ComputerVsComputerEndsInDraw()
         {
             var game = new Game(board, new ComputerPlayer(Mark.X, Mark.O), new ComputerPlayer(Mark.O, Mark.X));
-            new GameRunner(game, new StubInterface()).Run();
+            new GameRunner(game, new StubDisplay()).Run();
             Assert.IsTrue(game.HasBeenDrawn());
         }
 

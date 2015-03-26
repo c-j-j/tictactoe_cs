@@ -1,4 +1,3 @@
-
 using System;
 using System.IO;
 using NUnit.Framework;
@@ -55,7 +54,7 @@ namespace TicTacToe.Tests
             Console.SetIn(new StringReader("1"));
             userInput.GetPlayerType(Mark.X, options);
             Assert.That(stringWriter.ToString(),
-                Is.StringContaining(String.Format(ConsoleDisplay.SELECT_PLAYER_MESSAGE, Mark.X)));
+                    Is.StringContaining(String.Format(ConsoleUserInput.SELECT_PLAYER_MESSAGE, Mark.X)));
             Assert.That(stringWriter.ToString(), Is.StringContaining(options[0]));
         }
 

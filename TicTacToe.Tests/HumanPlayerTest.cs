@@ -5,22 +5,24 @@ namespace TicTacToe.Tests
     [TestFixture]
     public class HumanPlayerTests
     {
-        StubInterface userInterface;
+        StubDisplay display;
+        StubInput input;
         HumanPlayer humanPlayer;
         Game game;
 
         [SetUp]
         public void Setup()
         {
-            userInterface = new StubInterface();
+            display = new StubDisplay();
+            input = new StubInput();
             game = TestGameFactory.NewGame();
-            humanPlayer = new HumanPlayer(Mark.O, userInterface);
+            humanPlayer = new HumanPlayer(Mark.O, display, input);
         }
 
         [Test]
         public void GetsMoveFromUserInterface()
         {
-            userInterface.PrepareUserPositions(0);
+            input.PrepareUserPositions(0);
             var move = humanPlayer.GetMove(game);
             Assert.AreEqual(Mark.O, move.Mark);
             Assert.AreEqual(0, move.Position);
@@ -29,15 +31,15 @@ namespace TicTacToe.Tests
         [Test]
         public void DoesNotReturnInvalidMove()
         {
-            userInterface.PrepareUserPositions(-1, 0);
+            input.PrepareUserPositions(-1, 0);
             humanPlayer.GetMove(game);
-            Assert.IsTrue(userInterface.PrintInvalidMoveMessageCalled());
+            Assert.IsTrue(display.PrintInvalidMoveMessageCalled());
         }
 
         [Test]
         public void FactoryBuildsPlayer()
         {
-            Player player = new HumanPlayer.Factory(new StubInterface()).Build(Mark.X, Mark.O);
+            Player player = new HumanPlayer.Factory(new StubDisplay(), new StubInput()).Build(Mark.X, Mark.O);
             Assert.AreEqual(player.Mark, Mark.X);
         }
     }

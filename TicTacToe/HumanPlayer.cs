@@ -2,10 +2,12 @@ namespace TicTacToe
 {
     public class HumanPlayer : Player
     {
-        private readonly Display display;
+        readonly Display display;
+        readonly UserInput userInput;
 
-        public HumanPlayer(Mark mark, Display display)
+        public HumanPlayer(Mark mark, Display display, UserInput userInput)
         {
+            this.userInput = userInput;
             this.display = display;
             Mark = mark;
         }
@@ -35,20 +37,22 @@ namespace TicTacToe
 
         int GetPositionFromUser()
         {
-            return display.GetUserPosition();
+            return userInput.GetUserPosition();
         }
 
         public class Factory : PlayerFactory
         {
-            private readonly Display display;
+            readonly Display display;
+            readonly UserInput userInput;
 
-            public Factory(Display display){
+            public Factory(Display display, UserInput userInput){
+                this.userInput = userInput;
                 this.display = display;
             }
 
             public Player Build(Mark playerMark, Mark opponentMark)
             {
-                return new HumanPlayer(playerMark, display);
+                return new HumanPlayer(playerMark, display, userInput);
             }
         }
     }

@@ -2,30 +2,18 @@
 
 namespace TicTacToe.Tests
 {
-    public class StubInterface : Display
+    public class StubDisplay : Display
     {
-        private Queue positions;
         private bool printErrorMessageCalled = false;
         private bool printDrawnOutcomeCalled = false;
         private bool printWinOutcomeCalled = false;
         private Mark winningMarkPrinted = Mark.EMPTY;
         private bool printBoardCalled = false;
         private bool printNextPlayerCalled = false;
-        string playerType;
-
-        public void PrepareUserPositions(params int[] positions)
-        {
-            this.positions = new Queue(positions);
-        }
 
         public override void PrintMessage(string messsage)
         {
 
-        }
-
-        public override int GetUserPosition()
-        {
-            return (int)positions.Dequeue();
         }
 
         public override void PrintInvalidMoveError()
@@ -77,16 +65,6 @@ namespace TicTacToe.Tests
         public bool PrintNextPlayerCalled()
         {
             return printNextPlayerCalled;
-        }
-
-        public void PreparePlayerTypeToReturn(string playerType)
-        {
-            this.playerType = playerType;
-        }
-
-        public override string GetPlayerType(Mark mark, string[] options)
-        {
-            return playerType;
         }
 
     }

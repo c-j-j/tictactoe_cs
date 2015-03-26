@@ -44,14 +44,15 @@
     <Compile Include="StubPlayer.cs" />
     <Compile Include="ComputerPlayerTest.cs" />
     <Compile Include="HumanPlayerTest.cs" />
-    <Compile Include="StubInterface.cs" />
+    <Compile Include="StubDisplay.cs" />
     <Compile Include="TestGameFactory.cs" />
-    <Compile Include="ConsoleUserInterfaceTest.cs" />
+    <Compile Include="ConsoleDisplayTest.cs" />
     <Compile Include="NodeTest.cs" />
     <Compile Include="NegamaxCalculatorTest.cs" />
     <Compile Include="GameSetupTest.cs" />
     <Compile Include="GameRunnerTest.cs" />
     <Compile Include="ConsoleUserInputTest.cs" />
+    <Compile Include="StubInput.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

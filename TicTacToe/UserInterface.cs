@@ -28,10 +28,6 @@ namespace TicTacToe
             PrintMessage(string.Format(NEXT_PLAYER_MESSAGE, nextPlayerMark));
         }
 
-        //todo taken out of here and put in separate interface class
-        public abstract string GetPlayerType(Mark mark, string[] options);
-        public abstract int GetUserPosition();
-
         public abstract void PrintMessage(string message);
         public abstract void PrintBoard(Board board);
     }

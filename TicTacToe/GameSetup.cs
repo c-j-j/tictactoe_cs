@@ -5,13 +5,13 @@ namespace TicTacToe
 {
     public class GameSetup
     {
-        private readonly Display userInterface;
+        private readonly UserInput userInput;
         private readonly Dictionary<string, PlayerFactory> playerOptions;
 
-        public GameSetup(Display userInterface, Dictionary<string, PlayerFactory> playerOptions)
+        public GameSetup(UserInput userInput, Dictionary<string, PlayerFactory> playerOptions)
         {
             this.playerOptions = playerOptions;
-            this.userInterface = userInterface;
+            this.userInput = userInput;
         }
 
         public Game CreateGame()
@@ -26,7 +26,7 @@ namespace TicTacToe
 
         private string GetPlayerType(Mark player)
         {
-            return userInterface.GetPlayerType(player, playerOptions.Keys.ToArray());
+            return userInput.GetPlayerType(player, playerOptions.Keys.ToArray());
         }
     }
 }
