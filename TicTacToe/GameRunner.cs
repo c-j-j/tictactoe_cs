@@ -19,10 +19,12 @@ namespace TicTacToe
 
         private void PlayGame()
         {
+            PrintBoard();
             while (GameIsInPlay() && CurrentPlayerIsReady())
             {
-                PrintGameMessages();
+                PrintNextPlayerToGo();
                 PlayTurn();
+                PrintBoard();
             }
         }
 
@@ -41,9 +43,14 @@ namespace TicTacToe
             return !game.IsGameOver();
         }
 
-        private void PrintGameMessages()
+        void PrintBoard()
         {
             userInterface.PrintBoard(game.Board);
+        }
+
+        private void PrintGameMessages()
+        {
+            PrintBoard();
             PrintNextPlayerToGo();
         }
 
