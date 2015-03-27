@@ -1,5 +1,3 @@
-using System;
-
 namespace TicTacToe
 {
     public class GameRunner
@@ -21,11 +19,16 @@ namespace TicTacToe
 
         private void PlayGame()
         {
-            while (GameIsInPlay())
+            while (GameIsInPlay() && CurrentPlayerIsReady())
             {
                 PrintGameMessages();
                 PlayTurn();
             }
+        }
+
+        bool CurrentPlayerIsReady()
+        {
+            return game.CurrentPlayerReady();
         }
 
         private void PlayTurn()
@@ -41,7 +44,7 @@ namespace TicTacToe
         private void PrintGameMessages()
         {
             userInterface.PrintBoard(game.Board);
-            userInterface.PrintNextPlayer(game.CurrentPlayerMark);
+            PrintNextPlayerToGo();
         }
 
         private void PrintOutcome()
@@ -56,8 +59,13 @@ namespace TicTacToe
             }
             else
             {
-                throw new Exception("Game ended in neither win nor draw");
+                PrintNextPlayerToGo();
             }
+        }
+
+        void PrintNextPlayerToGo()
+        {
+            userInterface.PrintNextPlayer(game.CurrentPlayerMark);
         }
     }
 }

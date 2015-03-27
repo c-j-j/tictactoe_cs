@@ -20,6 +20,12 @@ namespace TicTacToe.Tests
         }
 
         [Test]
+        public void HumanPlayerAlwaysReady()
+        {
+            Assert.AreEqual(true, humanPlayer.Ready());
+        }
+
+        [Test]
         public void GetsMoveFromUserInterface()
         {
             input.PrepareUserPositions(0);

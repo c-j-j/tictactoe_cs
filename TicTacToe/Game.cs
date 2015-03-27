@@ -16,6 +16,11 @@ namespace TicTacToe
             this.board = board;
         }
 
+        public bool CurrentPlayerReady()
+        {
+            return GetCurrentPlayer().Ready();
+        }
+
         public void PlayTurn()
         {
             board.AddMove(GetCurrentPlayer().GetMove(this));

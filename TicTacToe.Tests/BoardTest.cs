@@ -24,6 +24,12 @@ namespace TicTacToe.Tests
         }
 
         [Test]
+        public void ExposesPositions()
+        {
+            Assert.AreEqual(board.Positions().Count, 9);
+        }
+
+        [Test]
         public void AddsMoveToBoard()
         {
 			AddMoveToBoard (board, Mark.X, 0);

@@ -34,6 +34,11 @@ namespace TicTacToe
             positions = new Mark[BOARD_SIZE];
         }
 
+        public IList<Mark> Positions()
+        {
+            return new List<Mark>(positions);
+        }
+
         private Board(Mark[] positions){
            this.positions = positions;
         }

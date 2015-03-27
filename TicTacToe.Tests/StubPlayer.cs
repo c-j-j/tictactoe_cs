@@ -4,15 +4,25 @@ namespace TicTacToe
     {
         int nextMove;
         private Mark mark;
+        bool isReady;
 
-        public StubPlayer(Mark mark)
+        public StubPlayer(Mark mark) : this(mark, true)
         {
+        }
+
+        public StubPlayer(Mark mark, bool isReady)
+        {
+            this.isReady = isReady;
             this.mark = mark;
         }
 
-        public StubPlayer()
+        public StubPlayer() : this(Mark.X, true)
         {
-            this.mark = Mark.X;
+        }
+
+        public bool Ready()
+        {
+            return isReady;
         }
 
         public void PrepareMove(int nextMove)

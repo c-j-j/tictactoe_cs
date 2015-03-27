@@ -25,6 +25,11 @@ namespace TicTacToe
             return move;
         }
 
+        public bool Ready()
+        {
+            return true;
+        }
+
         private void PrintInvalidMoveError()
         {
             display.PrintInvalidMoveError();

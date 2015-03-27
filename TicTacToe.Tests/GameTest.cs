@@ -37,6 +37,22 @@ namespace TicTacToe.Tests
         }
 
         [Test]
+        public void GameReadyWhenCurrentPlayerReady()
+        {
+            player1 = new StubPlayer(Mark.X, true);
+            game = new Game(board, player1, player2);
+            Assert.AreEqual(true, game.CurrentPlayerReady());
+        }
+
+        [Test]
+        public void GameNotReadyWhenCurrentPlayerNotReady()
+        {
+            player1 = new StubPlayer(Mark.X, false);
+            game = new Game(board, player1, player2);
+            Assert.AreEqual(false, game.CurrentPlayerReady());
+        }
+
+        [Test]
         public void GameNotWonWhenBoardIsEmpty()
         {
             Assert.IsFalse(game.HasBeenWon());

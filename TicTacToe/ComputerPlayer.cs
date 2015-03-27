@@ -23,6 +23,11 @@ namespace TicTacToe
             return new Move(Mark, FindBestPosition(game));
         }
 
+        public bool Ready()
+        {
+            return true;
+        }
+
         private int FindBestPosition(Game game)
         {
             const int defaultPosition = -1;

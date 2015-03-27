@@ -7,6 +7,14 @@ namespace TicTacToe
             return new Game(new Board(), new StubPlayer(), new StubPlayer());
         }
 
+        public static Game GameWhereNextPlayerIsntReady()
+        {
+            var stubPlayer1 = new StubPlayer(Mark.X, false);
+            var stubPlayer2 = new StubPlayer(Mark.O);
+            var board = new Board();
+            return new Game(board, stubPlayer1, stubPlayer2);
+        }
+
         public static Game OneTurnGame()
         {
             var stubPlayer1 = new StubPlayer(Mark.X);

@@ -19,6 +19,12 @@ namespace TicTacToe.Tests
         }
 
         [Test]
+        public void ComputerPlayerAlwaysReady()
+        {
+            Assert.AreEqual(true, computerPlayer.Ready());
+        }
+
+        [Test]
         public void ScoreIsZeroWhenGameEndedInDraw()
         {
             var game = TestGameFactory.DrawnGame();

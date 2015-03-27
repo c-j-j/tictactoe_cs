@@ -42,6 +42,15 @@ namespace TicTacToe.Tests
         }
 
         [Test]
+        public void PrintsOutNextPlayerToGoWhenNextPlayerIsntReady()
+        {
+            var game = TestGameFactory.GameWhereNextPlayerIsntReady();
+            var gameDriver = new GameRunner(game, stubInterface);
+            gameDriver.Run();
+            Assert.IsTrue(stubInterface.PrintNextPlayerCalled());
+        }
+
+        [Test]
         public void PrintsNextPlayerToGoDuringGameplay()
         {
             var game = TestGameFactory.OneTurnGame();
