@@ -37,6 +37,9 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="Negamax">
+      <HintPath>../../Negamax/Negamax/bin/Release/Negamax.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BoardTest.cs" />
@@ -47,8 +50,6 @@
     <Compile Include="StubDisplay.cs" />
     <Compile Include="TestGameFactory.cs" />
     <Compile Include="ConsoleDisplayTest.cs" />
-    <Compile Include="NodeTest.cs" />
-    <Compile Include="NegamaxCalculatorTest.cs" />
     <Compile Include="GameSetupTest.cs" />
     <Compile Include="GameRunnerTest.cs" />
     <Compile Include="ConsoleUserInputTest.cs" />
