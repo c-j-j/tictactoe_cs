@@ -29,7 +29,7 @@ namespace TicTacToe.Tests
         public void ScoreIsZeroWhenGameEndedInDraw()
         {
             var game = TestGameFactory.DrawnGame();
-            var score = computerPlayer.CalculateGameScore(game, Mark.X);
+            var score = computerPlayer.CalculateGameScore(game);
             Assert.AreEqual(score, 0);
         }
 
@@ -37,23 +37,15 @@ namespace TicTacToe.Tests
         public void ScoreIsNegativeWhenComputerHasLost()
         {
             var game = TestGameFactory.WonGame(Mark.O);
-            var score = computerPlayer.CalculateGameScore(game, Mark.X);
+            var score = computerPlayer.CalculateGameScore(game);
             Assert.AreEqual(score, -10);
-        }
-
-        [Test]
-        public void ScoreIsPositiveWhenComputerHasWon()
-        {
-            var game = TestGameFactory.WonGame(Mark.X);
-            var score = computerPlayer.CalculateGameScore(game, Mark.X);
-            Assert.AreEqual(score, 10);
         }
 
         [Test]
         public void GeneratesAllPossibleGameTypes()
         {
             var game = TestGameFactory.NewGame();
-            var list = computerPlayer.GeneratePossibleGameStates(game, Mark.X).ToArray();
+            var list = computerPlayer.GeneratePossibleGameStates(game).ToArray();
             Assert.AreEqual(list.Length, 9);
         }
 
@@ -111,10 +103,9 @@ namespace TicTacToe.Tests
 
         private void AssertNextMoveIs(int expectedMove)
         {
-            var game = new Game(board, opponentPlayer, computerPlayer);
+            var game = new Game(board, computerPlayer, opponentPlayer);
             var move = computerPlayer.GetMove(game);
             Assert.AreEqual(expectedMove, move.Position);
-
         }
 
         void AddMoveToBoard(Board b, Player player, int position)

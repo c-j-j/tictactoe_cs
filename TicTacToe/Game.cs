@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -76,7 +77,8 @@ namespace TicTacToe
 
         private Player GetCurrentPlayer()
         {
-            return PlayerOneGoingNext() ? Player1 : Player2;
+            var player = PlayerOneGoingNext() ? Player1 : Player2;
+            return player;
         }
 
         private bool IsPositionEmpty(Move move)

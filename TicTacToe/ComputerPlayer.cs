@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Negamax;
 
 namespace TicTacToe
 {
     public class ComputerPlayer : Player
     {
+        //TODO remove
         Mark opponentMark;
         const int WON_SCORE = 10;
         const int LOST_SCORE = -10;
@@ -35,18 +37,18 @@ namespace TicTacToe
             return CreateNegaMaxCalculator().Negamax(new Node<Game, int>(game, defaultPosition)).Node.Datum;
         }
 
-        public IEnumerable<Node<Game, int>> GeneratePossibleGameStates(Game game, Mark mark)
+        public IEnumerable<Node<Game, int>> GeneratePossibleGameStates(Game game)
         {
             var trackedGames = new List<Node<Game, int>>();
             foreach (var position in game.GetAvailablePositions())
             {
-                var newGame = game.CopyGameWithNewMove(new Move(mark, position));
+                var newGame = game.CopyGameWithNewMove(new Move(game.CurrentPlayerMark, position));
                 trackedGames.Add(new Node<Game, int>(newGame, position));
             }
             return trackedGames;
         }
 
-        public int CalculateGameScore(Game game, Mark mark)
+        public int CalculateGameScore(Game game)
         {
             if (!game.IsGameOver())
             {
@@ -57,7 +59,9 @@ namespace TicTacToe
             {
                 return DRAWN_SCORE;
             }
-            return MarkHasWon(game, mark) ? WON_SCORE : LOST_SCORE;
+
+            var score = MarkHasWon(game, game.CurrentPlayerMark) ? WON_SCORE : LOST_SCORE;
+            return score;
         }
 
         private bool MarkHasWon(Game game, Mark mark)
@@ -70,10 +74,9 @@ namespace TicTacToe
             return g => g.IsGameOver();
         }
 
-        private NegamaxCalculator<Game, Mark, int> CreateNegaMaxCalculator()
+        private NegamaxCalculator<Game, int> CreateNegaMaxCalculator()
         {
-            return new NegamaxCalculator<Game, Mark, int>(GameOverPredicate(), 
-                    CalculateGameScore, GeneratePossibleGameStates, Mark, opponentMark);
+            return new NegamaxCalculator<Game, int>(GameOverPredicate(), CalculateGameScore, GeneratePossibleGameStates);
         }
 
         public class Factory : PlayerFactory

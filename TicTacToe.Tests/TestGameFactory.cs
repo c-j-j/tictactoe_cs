@@ -4,7 +4,7 @@ namespace TicTacToe
     {
         public static Game NewGame()
         {
-            return new Game(new Board(), new StubPlayer(), new StubPlayer());
+            return new Game(new Board(), new StubPlayer(Mark.X), new StubPlayer(Mark.O));
         }
 
         public static Game GameWhereNextPlayerIsntReady()
