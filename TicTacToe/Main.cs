@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 namespace TicTacToe
@@ -9,12 +8,24 @@ namespace TicTacToe
         {
             var userInterface = new ConsoleDisplay();
             var userInput = new ConsoleUserInput();
-            //This can be improved, violates OCP still as new factories need to be added
-            var playerOptions = new Dictionary<string, PlayerFactory>();
-            playerOptions.Add("Human Player", new HumanPlayer.Factory(userInterface, userInput));
-            playerOptions.Add("Computer Player", new ComputerPlayer.Factory());
-            var game = new GameSetup(userInput, playerOptions).CreateGame();
-            new GameRunner(game, userInterface).Run();
+            new GameRunner(CreateGame(userInterface, userInput), userInterface).Run();
         }
+
+        static Game CreateGame(ConsoleDisplay userInterface, ConsoleUserInput userInput)
+        {
+            var playerOptions = new Dictionary<string, PlayerFactory>
+            {
+                {
+                    "Human Player",
+                    new HumanPlayer.Factory(userInterface, userInput)
+                },
+                {
+                    "Computer Player",
+                    new ComputerPlayer.Factory()
+                }
+            };
+            return new GameSetup(userInput, playerOptions).CreateGame();
+        }
+
     }
 }
