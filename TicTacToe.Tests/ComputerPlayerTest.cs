@@ -29,7 +29,7 @@ namespace TicTacToe.Tests
         public void ScoreIsZeroWhenGameEndedInDraw()
         {
             var game = TestGameFactory.DrawnGame();
-            var score = computerPlayer.CalculateGameScore(game);
+            var score = computerPlayer.CalculateGameScore(new Node<Game, int>(game, 0));
             Assert.AreEqual(score, 0);
         }
 
@@ -37,7 +37,7 @@ namespace TicTacToe.Tests
         public void ScoreIsNegativeWhenComputerHasLost()
         {
             var game = TestGameFactory.WonGame(Mark.O);
-            var score = computerPlayer.CalculateGameScore(game);
+            var score = computerPlayer.CalculateGameScore(new Node<Game, int>(game, 0));
             Assert.AreEqual(score, -10);
         }
 
@@ -45,7 +45,7 @@ namespace TicTacToe.Tests
         public void GeneratesAllPossibleGameTypes()
         {
             var game = TestGameFactory.NewGame();
-            var list = computerPlayer.GeneratePossibleGameStates(game).ToArray();
+            var list = computerPlayer.GeneratePossibleGameStates(new Node<Game, int>(game, 0)).ToArray();
             Assert.AreEqual(list.Length, 9);
         }
 

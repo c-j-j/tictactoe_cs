@@ -34,11 +34,12 @@ namespace TicTacToe
         private int FindBestPosition(Game game)
         {
             const int defaultPosition = -1;
-            return CreateNegaMaxCalculator().Negamax(new Node<Game, int>(game, defaultPosition)).Node.Datum;
+            return CreateNegaMaxCalculator().FindBestNode(new Node<Game, int>(game, defaultPosition)).Datum;
         }
 
-        public IEnumerable<Node<Game, int>> GeneratePossibleGameStates(Game game)
+        public IEnumerable<Node<Game, int>> GeneratePossibleGameStates(Node<Game, int> node)
         {
+           var game = node.State;
             var trackedGames = new List<Node<Game, int>>();
             foreach (var position in game.GetAvailablePositions())
             {
@@ -48,8 +49,9 @@ namespace TicTacToe
             return trackedGames;
         }
 
-        public int CalculateGameScore(Game game)
+        public int CalculateGameScore(Node<Game, int> node)
         {
+            var game = node.State;
             if (!game.IsGameOver())
             {
                 throw new Exception("Calculating Score when it isn't game over");
@@ -69,14 +71,14 @@ namespace TicTacToe
             return game.WinningMark().Equals(mark);
         }
 
-        private Predicate<Game> GameOverPredicate()
+        private Predicate<Node<Game, int>> GameOverPredicate()
         {
-            return g => g.IsGameOver();
+            return g => g.State.IsGameOver();
         }
 
-        private NegamaxCalculator<Game, int> CreateNegaMaxCalculator()
+        private NegamaxCalculator<Node<Game, int>> CreateNegaMaxCalculator()
         {
-            return new NegamaxCalculator<Game, int>(GameOverPredicate(), CalculateGameScore, GeneratePossibleGameStates);
+            return new NegamaxCalculator<Node<Game, int>>(GameOverPredicate(), CalculateGameScore, GeneratePossibleGameStates);
         }
 
         public class Factory : PlayerFactory
