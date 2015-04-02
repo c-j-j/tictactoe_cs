@@ -5,13 +5,18 @@ namespace TicTacToe
         private readonly Game game;
         private readonly Display userInterface;
 
+        public GameRunner()
+        {
+            //used by mocking libraries
+        }
+
         public GameRunner(Game game, Display userInterface)
         {
             this.userInterface = userInterface;
             this.game = game;
         }
 
-        public void Run()
+        public virtual void Run()
         {
             PlayGame();
             PrintOutcome();
